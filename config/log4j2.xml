@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Configuration monitorInterval="60">
+<Configuration monitorInterval="60" status="debug">
     <Properties>
         <Property name="log-path">out/LOGS</Property>>
         <Property name="archive">${log-path}/archive</Property>
@@ -13,13 +13,6 @@
                 </pattern>
             </PatternLayout>
         </Console>
-        <File name="File-Appender" fileName="${log-path}/BetaHedger.log">
-            <PatternLayout>
-                <pattern>
-                    [%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %msg%n
-                </pattern>
-            </PatternLayout>
-        </File>
         <RollingRandomAccessFile name="RollingRandomAccessFile-Appender"
                      fileName="${log-path}/BetaHedger.log"
                      filePattern="${archive}/BetaHedger.%d{yyyy-MM-dd}.log.gz">
