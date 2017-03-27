@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="xstream">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/../3rdParty/xstream" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.ideaLibSources/xstream-1.3.1-sources.jar!/" />
+    </SOURCES>
+    <jarDirectory url="file://$PROJECT_DIR$/../3rdParty/xstream" recursive="false" />
+  </library>
+</component>

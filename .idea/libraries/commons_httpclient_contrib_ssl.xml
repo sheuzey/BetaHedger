@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="commons-httpclient-contrib-ssl">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/../3rdParty/commons-httpclient-contrib-ssl" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+    <jarDirectory url="file://$PROJECT_DIR$/../3rdParty/commons-httpclient-contrib-ssl" recursive="false" />
+  </library>
+</component>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" opacity="0.6" prefHeight="300.0" prefWidth="450.0" style="-fx-background-color: grey;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="LoginController">
+   <top>
+      <Text disable="true" fill="#00ff48" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="BetaHedger" BorderPane.alignment="CENTER">
+         <font>
+            <Font name="Verdana Bold Italic" size="40.0" />
+         </font>
+      </Text>
+   </top>
+   <center>
+      <VBox fx:id="vBox" opacity="0.99" spacing="5.0" BorderPane.alignment="CENTER">
+         <children>
+            <TextField fx:id="codeField" alignment="CENTER" promptText="Passcode" visible="false">
+               <VBox.margin>
+                  <Insets left="100.0" right="100.0" />
+               </VBox.margin>
+            </TextField>
+            <Button fx:id="loginButton" mnemonicParsing="false" pickOnBounds="false" text="Get Passcode">
+               <VBox.margin>
+                  <Insets left="125.0" />
+               </VBox.margin></Button>
+         </children>
+         <BorderPane.margin>
+            <Insets bottom="50.0" left="50.0" right="50.0" top="50.0" />
+         </BorderPane.margin>
+      </VBox>
+   </center>
+   <padding>
+      <Insets bottom="5.0" top="5.0" />
+   </padding>
+   <opaqueInsets>
+      <Insets />
+   </opaqueInsets>
+   <effect>
+      <DropShadow />
+   </effect>
+   <bottom>
+      <Label text="Steve Heuzey" BorderPane.alignment="CENTER_LEFT">
+         <padding>
+            <Insets left="10.0" />
+         </padding>
+      </Label>
+   </bottom>
+</BorderPane>

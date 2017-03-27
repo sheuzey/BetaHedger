@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="eTradeLib">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../3rdParty/eTradeLib/etws-accounts-sdk-1.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../3rdParty/eTradeLib/etws-common-connections-1.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../3rdParty/eTradeLib/etws-market-sdk-1.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../3rdParty/eTradeLib/etws-oauth-sdk-1.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../3rdParty/eTradeLib/etws-order-sdk-1.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
