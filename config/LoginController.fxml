@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.web.*?>
+<?import java.lang.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.effect.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" opacity="0.6" prefHeight="300.0" prefWidth="450.0" style="-fx-background-color: grey;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="LoginController">
+<BorderPane fx:id="mainBorderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" opacity="0.6" prefHeight="300.0" prefWidth="450.0" style="-fx-background-color: grey;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="LoginController">
    <top>
       <Text disable="true" fill="#00ff48" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="BetaHedger" BorderPane.alignment="CENTER">
          <font>
@@ -26,9 +28,10 @@
                <VBox.margin>
                   <Insets left="125.0" />
                </VBox.margin></Button>
+            <WebView fx:id="etradeWebView" prefHeight="200.0" prefWidth="200.0" />
          </children>
          <BorderPane.margin>
-            <Insets bottom="50.0" left="50.0" right="50.0" top="50.0" />
+            <Insets bottom="10.0" left="50.0" right="50.0" top="50.0" />
          </BorderPane.margin>
       </VBox>
    </center>
@@ -41,11 +44,4 @@
    <effect>
       <DropShadow />
    </effect>
-   <bottom>
-      <Label text="Steve Heuzey" BorderPane.alignment="CENTER_LEFT">
-         <padding>
-            <Insets left="10.0" />
-         </padding>
-      </Label>
-   </bottom>
 </BorderPane>

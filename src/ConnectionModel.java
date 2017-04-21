@@ -8,8 +8,11 @@ import com.etrade.etws.oauth.sdk.client.OAuthClientImpl;
 import com.etrade.etws.oauth.sdk.common.Token;
 import com.etrade.etws.sdk.client.ClientRequest;
 
-import java.awt.*;
+import java.io.FileInputStream;
 import java.net.URI;
+import java.util.Properties;
+
+import org.apache.commons.lang.exception.ExceptionUtils;
 import org.apache.logging.log4j.*;
 
 
@@ -22,8 +25,8 @@ public class ConnectionModel {
     private Token token;
     private String oauth_request_token;
     private String oauth_request_token_secret;
-    private final String oauth_consumer_key;
-    private final String oauth_consumer_secret;
+    private String oauth_consumer_key;
+    private String oauth_consumer_secret;
     private String authorizeURL;
     private URI uri;
     private String oauth_access_token;
@@ -31,8 +34,27 @@ public class ConnectionModel {
     private String oauth_verify_code;
 
     public ConnectionModel(){
-        this.oauth_consumer_key = "5df67ac77ab84a3522d691f2b65328c7";
-        this.oauth_consumer_secret = "50cf251bea54d5a6d89f437714ee0c7e";
+        Properties prop = new Properties();
+        FileInputStream input = null;
+
+        try {
+            input = new FileInputStream("config/BetaHedger.properties");
+            prop.load(input);
+            this.oauth_consumer_key = prop.getProperty("oauth_consumer_key");
+            this.oauth_consumer_secret = prop.getProperty("oauth_consumer_secret");
+        } catch (Throwable e) {
+            this.logger.error(ExceptionUtils.getStackTrace(e));
+        } finally {
+            if (input != null){
+                try {
+                    input.close();
+                }
+                catch (Throwable e) {
+                    this.logger.error(ExceptionUtils.getStackTrace(e));
+                }
+            }
+        }
+
         this.oauth_request_token = null;
         this.oauth_request_token_secret = null;
         this.oauth_access_token = null;
@@ -53,19 +75,22 @@ public class ConnectionModel {
         this.logger.info("Environment set to " + this.request.getEnv());
     }
 
-    public void getVerificationCode() {
+    public URI getVerificationURI() {
         try {
             this.authorizeURL = this.client.getAuthorizeUrl(this.request);
             this.uri = new URI(this.authorizeURL);
             this.logger.info(String.format("Authorized URL {%s} URI {%s}", this.authorizeURL, this.uri));
-            this.logger.info("Creating E*TRADE Authorization Page ...");
+            return this.uri;
+            //TODO: Determine if we still need the UI element in the Model class (really should remove this!)
+            /*this.logger.info("Creating E*TRADE Authorization Page ...");
             Desktop desktop = Desktop.getDesktop();
             this.logger.info(String.format("Desktop Created {%s}", desktop.toString()));
-            desktop.browse(this.uri);
+            desktop.browse(this.uri);*/
 
         } catch (Throwable e) {
-            this.logger.error(e.getCause().getMessage());
+            this.logger.error(ExceptionUtils.getStackTrace(e));
         }
+        return null;
     }
 
     public void getAccessToken(String verificationCode){
@@ -79,7 +104,7 @@ public class ConnectionModel {
             this.oauth_access_token_secret = this.token.getSecret();
             this.logger.info(String.format("Access Token {%s} Access Token Secret {%s}", this.oauth_access_token, this.oauth_access_token_secret));
         } catch (Throwable e) {
-            this.logger.error(e.getCause().getMessage());
+            this.logger.error(ExceptionUtils.getStackTrace(e));
         }
     }
 
@@ -100,7 +125,7 @@ public class ConnectionModel {
             this.request.setTokenSecret(this.oauth_request_token_secret);
             this.logger.info(String.format("Request token set {Object {%s}} {Token {%s}} {Token Secret {%s}}", this.token.toString(), this.oauth_request_token, this.oauth_request_token_secret));
         } catch (Throwable e) {
-            this.logger.error(e.getCause().getMessage());
+            this.logger.error(ExceptionUtils.getStackTrace(e));
         }
 
     }

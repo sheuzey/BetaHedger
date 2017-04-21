@@ -3,7 +3,6 @@
  */
 
 import org.apache.logging.log4j.*;
-import javafx.event.ActionEvent;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
@@ -26,9 +25,9 @@ public class BetaHedgerInit extends Application {
 
         Parent root = FXMLLoader.load(getClass().getResource("LoginController.fxml"));
 
-        primaryStage.setTitle("BetaHedger");
+        primaryStage.setTitle("Login");
         primaryStage.setScene(new Scene(root));
-        primaryStage.setResizable(false);
+        //primaryStage.setResizable(false);
         primaryStage.show();
     }
 }
