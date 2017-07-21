@@ -22,7 +22,8 @@ public class ConnectionModel {
 
     private IOAuthClient client;
     private ClientRequest request;
-    private Token token;
+    private Token requestToken;
+    private Token accessToken;
     private String oauth_request_token;
     private String oauth_request_token_secret;
     private String oauth_consumer_key;
@@ -60,7 +61,8 @@ public class ConnectionModel {
         this.oauth_access_token = null;
         this.oauth_access_token_secret = null;
         this.oauth_verify_code = null;
-        this.token = null;
+        this.requestToken = null;
+        this.accessToken = null;
         this.authorizeURL = null;
 
         this.client = OAuthClientImpl.getInstance();
@@ -81,11 +83,6 @@ public class ConnectionModel {
             this.uri = new URI(this.authorizeURL);
             this.logger.info(String.format("Authorized URL {%s} URI {%s}", this.authorizeURL, this.uri));
             return this.uri;
-            //TODO: Determine if we still need the UI element in the Model class (really should remove this!)
-            /*this.logger.info("Creating E*TRADE Authorization Page ...");
-            Desktop desktop = Desktop.getDesktop();
-            this.logger.info(String.format("Desktop Created {%s}", desktop.toString()));
-            desktop.browse(this.uri);*/
 
         } catch (Throwable e) {
             this.logger.error(ExceptionUtils.getStackTrace(e));
@@ -93,15 +90,15 @@ public class ConnectionModel {
         return null;
     }
 
-    public void getAccessToken(String verificationCode){
+    public void setAccessToken(String verificationCode){
         try {
             this.oauth_verify_code = verificationCode;
             this.request.setVerifierCode(this.oauth_verify_code);
-            this.token = this.client.getAccessToken(this.request);
-            this.logger.info(String.format("Access Token set {%s}",this.token.toString()));
+            this.accessToken = this.client.getAccessToken(this.request);
+            this.logger.info(String.format("Access Token set {%s}",this.accessToken.toString()));
 
-            this.oauth_access_token = this.token.getToken();
-            this.oauth_access_token_secret = this.token.getSecret();
+            this.oauth_access_token = this.accessToken.getToken();
+            this.oauth_access_token_secret = this.accessToken.getSecret();
             this.logger.info(String.format("Access Token {%s} Access Token Secret {%s}", this.oauth_access_token, this.oauth_access_token_secret));
         } catch (Throwable e) {
             this.logger.error(ExceptionUtils.getStackTrace(e));
@@ -118,12 +115,12 @@ public class ConnectionModel {
 
         try {
             this.logger.info("Setting Request Token ...");
-            this.token = this.client.getRequestToken(this.request);
-            this.oauth_request_token = this.token.getToken();
-            this.oauth_request_token_secret = this.token.getSecret();
+            this.requestToken = this.client.getRequestToken(this.request);
+            this.oauth_request_token = this.requestToken.getToken();
+            this.oauth_request_token_secret = this.requestToken.getSecret();
             this.request.setToken(this.oauth_request_token);
             this.request.setTokenSecret(this.oauth_request_token_secret);
-            this.logger.info(String.format("Request token set {Object {%s}} {Token {%s}} {Token Secret {%s}}", this.token.toString(), this.oauth_request_token, this.oauth_request_token_secret));
+            this.logger.info(String.format("Request token set {Object {%s}} {Token {%s}} {Token Secret {%s}}", this.requestToken.toString(), this.oauth_request_token, this.oauth_request_token_secret));
         } catch (Throwable e) {
             this.logger.error(ExceptionUtils.getStackTrace(e));
         }

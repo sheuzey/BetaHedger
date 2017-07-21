@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.web.*?>
-<?import java.lang.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.effect.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane fx:id="mainBorderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" opacity="0.6" prefHeight="300.0" prefWidth="450.0" style="-fx-background-color: grey;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="LoginController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" opacity="0.6" prefHeight="300.0" prefWidth="450.0" style="-fx-background-color: grey;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="LoginController">
    <top>
       <Text disable="true" fill="#00ff48" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="BetaHedger" BorderPane.alignment="CENTER">
          <font>
@@ -24,9 +23,9 @@
                   <Insets left="100.0" right="100.0" />
                </VBox.margin>
             </TextField>
-            <Button fx:id="loginButton" mnemonicParsing="false" pickOnBounds="false" text="Get Passcode">
+            <Button fx:id="loginButton" mnemonicParsing="false" pickOnBounds="false" text="Login to E*TRADE Account">
                <VBox.margin>
-                  <Insets left="125.0" />
+                  <Insets left="80.0" />
                </VBox.margin></Button>
             <WebView fx:id="etradeWebView" prefHeight="200.0" prefWidth="200.0" />
          </children>
