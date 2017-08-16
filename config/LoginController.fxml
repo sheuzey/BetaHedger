@@ -1,39 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.*?>
+<?import java.lang.*?>
+<?import javafx.scene.web.*?>
 <?import javafx.scene.text.*?>
-<?import javafx.scene.effect.*?>
 <?import javafx.scene.layout.*?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="412.0" prefWidth="503.0" styleClass="login" stylesheets="@BetaHedgerStyles.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="685.0" prefWidth="1072.0" styleClass="login" stylesheets="@BetaHedgerStyles.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="LoginController">
    <children>
-      <Text layoutX="162.0" layoutY="63.0" mouseTransparent="true" strokeType="OUTSIDE" strokeWidth="0.0" text="BetaHedger" textAlignment="CENTER" wrappingWidth="178.21875">
-         <font>
-            <Font name="Geneva" size="30.0" />
-         </font>
-      </Text>
-      <Pane layoutX="40.0" layoutY="100.0" prefHeight="256.0" prefWidth="423.0" style="-fx-background-color: #D1D1D1;" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="110.0">
+      <StackPane layoutX="341.0" layoutY="3.0" prefHeight="88.0" prefWidth="200.0" AnchorPane.leftAnchor="340.0" AnchorPane.rightAnchor="340.0" AnchorPane.topAnchor="10.0">
          <children>
-            <JFXTextField focusColor="#424342" layoutX="41.0" layoutY="40.0" prefHeight="35.0" prefWidth="328.0" promptText="Username">
+            <Text mouseTransparent="true" pickOnBounds="true" strokeType="OUTSIDE" strokeWidth="0.0" text="BetaHedger" textAlignment="CENTER" wrappingWidth="178.21875">
                <font>
-                  <Font name="Geneva" size="13.0" />
+                  <Font name="Geneva" size="30.0" />
                </font>
-            </JFXTextField>
-            <JFXPasswordField focusColor="#424342" layoutX="41.0" layoutY="100.0" prefHeight="35.0" prefWidth="328.0" promptText="Password">
-               <font>
-                  <Font name="Geneva" size="13.0" />
-               </font>
-            </JFXPasswordField>
-            <JFXButton buttonType="RAISED" layoutX="159.0" layoutY="177.0" prefHeight="35.0" prefWidth="93.0" ripplerFill="#e9e9eb" style="-fx-background-color: #B4B4B4;" text="Login">
-               <font>
-                  <Font name="Geneva" size="18.0" />
-               </font>
-            </JFXButton>
+            </Text>
          </children>
-         <effect>
-            <DropShadow blurType="GAUSSIAN" />
-         </effect>
-      </Pane>
+      </StackPane>
+      <AnchorPane layoutX="92.0" layoutY="100.0" prefHeight="177.0" prefWidth="319.0" style="-fx-background-color: #D1D1D1;" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="92.0" AnchorPane.rightAnchor="92.0" AnchorPane.topAnchor="100.0">
+         <children>
+            <WebView fx:id="etradeWebView" layoutX="32.0" layoutY="31.0" minWidth="-1.0" prefHeight="533.0" prefWidth="643.0" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="40.0" />
+         </children>
+      </AnchorPane>
    </children>
 </AnchorPane>

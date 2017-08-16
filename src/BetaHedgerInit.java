@@ -28,7 +28,7 @@ public class BetaHedgerInit extends Application {
         primaryStage.setTitle("Login");
         primaryStage.setScene(new Scene(root));
 
-        primaryStage.setResizable(false);
+        //primaryStage.setResizable(false);
         primaryStage.show();
     }
 }
