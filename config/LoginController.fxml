@@ -1,25 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.web.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="685.0" prefWidth="1072.0" styleClass="login" stylesheets="@BetaHedgerStyles.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="LoginController">
-   <children>
-      <StackPane layoutX="341.0" layoutY="3.0" prefHeight="88.0" prefWidth="200.0" AnchorPane.leftAnchor="340.0" AnchorPane.rightAnchor="340.0" AnchorPane.topAnchor="10.0">
+<BorderPane prefHeight="630.0" prefWidth="1000.0" styleClass="login" stylesheets="@BetaHedgerStyles.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="LoginController">
+   <top>
+      <Text mouseTransparent="true" pickOnBounds="true" strokeType="OUTSIDE" strokeWidth="0.0" text="BetaHedger" textAlignment="CENTER" wrappingWidth="178.21875" BorderPane.alignment="CENTER">
+         <font>
+            <Font name="Geneva" size="30.0" />
+         </font>
+         <BorderPane.margin>
+            <Insets bottom="30.0" top="30.0" />
+         </BorderPane.margin>
+      </Text>
+   </top>
+   <center>
+      <StackPane fx:id="webViewStackPane" layoutX="92.0" layoutY="100.0" prefHeight="535.0" prefWidth="888.0" style="-fx-background-color: #D1D1D1;" StackPane.alignment="CENTER">
          <children>
-            <Text mouseTransparent="true" pickOnBounds="true" strokeType="OUTSIDE" strokeWidth="0.0" text="BetaHedger" textAlignment="CENTER" wrappingWidth="178.21875">
-               <font>
-                  <Font name="Geneva" size="30.0" />
-               </font>
-            </Text>
+            <WebView fx:id="etradeWebView" layoutX="32.0" layoutY="31.0" minWidth="-1.0" prefHeight="533.0" prefWidth="643.0" />
          </children>
+         <BorderPane.margin>
+            <Insets bottom="50.0" left="50.0" right="50.0" />
+         </BorderPane.margin>
+         <padding>
+            <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+         </padding>
       </StackPane>
-      <AnchorPane layoutX="92.0" layoutY="100.0" prefHeight="177.0" prefWidth="319.0" style="-fx-background-color: #D1D1D1;" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="92.0" AnchorPane.rightAnchor="92.0" AnchorPane.topAnchor="100.0">
-         <children>
-            <WebView fx:id="etradeWebView" layoutX="32.0" layoutY="31.0" minWidth="-1.0" prefHeight="533.0" prefWidth="643.0" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="40.0" />
-         </children>
-      </AnchorPane>
-   </children>
-</AnchorPane>
+   </center>
+</BorderPane>
