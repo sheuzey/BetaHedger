@@ -26,12 +26,12 @@ public class ConnectionModel {
     private Token accessToken;
     private String oauth_request_token;
     private String oauth_request_token_secret;
+    private String oauth_access_token;
+    private String oauth_access_token_secret;
     private String oauth_consumer_key;
     private String oauth_consumer_secret;
     private String authorizeURL;
     private URI uri;
-    private String oauth_access_token;
-    private String oauth_access_token_secret;
     private String oauth_verify_code;
 
     public ConnectionModel(){
@@ -75,6 +75,8 @@ public class ConnectionModel {
 
         this.request.setEnv(Environment.SANDBOX);
         this.logger.info("Environment set to " + this.request.getEnv());
+
+        setRequestWithRequestToken();
     }
 
     public URI getVerificationURI() {

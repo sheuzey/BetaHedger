@@ -17,9 +17,7 @@ public class MainController implements Initializable {
     private static final Logger logger = LogManager.getLogger(MainController.class);
 
     @Override
-    public void initialize(URL location, ResourceBundle resources) {
-
-    }
+    public void initialize(URL location, ResourceBundle resources) {    }
 
     public void setClientRequestWithAccessToken(ClientRequest clientRequest){
         this.clientRequestWithAccessToken = clientRequest;
