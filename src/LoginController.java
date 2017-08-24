@@ -61,8 +61,7 @@ public class LoginController implements Initializable{
 
         this.etradeWebEngine = this.etradeWebView.getEngine();
         this.etradeWebEngine.load(verificationURI);
-
-        //TODO: Tweak callback authorization procedure
+        
         etradeWebEngine.getLoadWorker().stateProperty().addListener(
                 (observable, oldValue, newValue) -> {
 
