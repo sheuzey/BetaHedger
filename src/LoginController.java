@@ -37,12 +37,12 @@ public class LoginController implements Initializable{
     private Label loadingLabel;
     private JFXSpinner loadingSpinner;
     private VBox loadingVBox;
-    private static final String ETRADE_LOGIN_ADDRESS_SUBSTRING = "authorize";
-    private static final String ETRADE_VERIFY_ADDRESS_SUBSTRING = "TradingAPICustomerInfo";
-    private static final String ETRADE_WELCOME_ADDRESS_SUBSTRING = "welcomecenter";
-    private static final String BETAHEDGER_ADDRESS_SUBSTRING = "betahedger";
-    private static final String OAUTH_VERIFIER = "oauth_verifier";
-    private static final String LOADING_VBOX_ID = "LoadingVboxId";
+    private final String ETRADE_LOGIN_ADDRESS_SUBSTRING = "authorize";
+    private final String ETRADE_VERIFY_ADDRESS_SUBSTRING = "TradingAPICustomerInfo";
+    private final String ETRADE_WELCOME_ADDRESS_SUBSTRING = "welcomecenter";
+    private final String BETAHEDGER_ADDRESS_SUBSTRING = "betahedger";
+    private final String OAUTH_VERIFIER = "oauth_verifier";
+    private final String LOADING_VBOX_ID = "LoadingVboxId";
 
     private ConnectionModel connectionModel;
 
@@ -50,7 +50,7 @@ public class LoginController implements Initializable{
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        this.logger.info("Login Screen created, initializing 'loading' spinner and label...");
+        logger.info("Login Screen created, initializing 'loading' spinner and label...");
         this.InitializeLoadingVBox();
 
         /**
@@ -61,14 +61,14 @@ public class LoginController implements Initializable{
 
         this.etradeWebEngine = this.etradeWebView.getEngine();
         this.etradeWebEngine.load(verificationURI);
-        
+
         etradeWebEngine.getLoadWorker().stateProperty().addListener(
                 (observable, oldValue, newValue) -> {
 
                     /** Get current URL address */
                     String urlAddress = this.etradeWebEngine.getLocation();
 
-                    this.logger.info(String.format("WebEngine state changed:\t {%s}\t-->\t{%s}\t{New Address: %s}", oldValue,newValue, urlAddress));
+                    logger.info(String.format("WebEngine state changed:\t {%s}\t-->\t{%s}\t{New Address: %s}", oldValue,newValue, urlAddress));
 
                     /**
                      * If the page succeeded in loading and is the welcome page (or not the login and verification site),
@@ -79,39 +79,39 @@ public class LoginController implements Initializable{
                     if (Worker.State.SUCCEEDED.equals(newValue)) {
                         if (urlAddress.contains(this.ETRADE_WELCOME_ADDRESS_SUBSTRING) ||
                                 (!urlAddress.contains(this.ETRADE_VERIFY_ADDRESS_SUBSTRING) && !urlAddress.contains(this.ETRADE_LOGIN_ADDRESS_SUBSTRING))) {
-                            this.logger.info(String.format("Loaded an E*TRADE page. Reloading again to go to verification page {Current Address {%s}}", urlAddress));
+                            logger.info(String.format("Loaded an E*TRADE page. Reloading again to go to verification page {Current Address {%s}}", urlAddress));
                             this.etradeWebEngine.load(verificationURI);
                         } else {
                             this.webViewStackPane.getChildren().remove(this.webViewStackPane.lookup(String.format("#%s",this.LOADING_VBOX_ID)));
-                            this.logger.info(String.format("Removed 'Loading' label from E*TRADE AnchorPane"));
+                            logger.info("Removed 'Loading' label from E*TRADE AnchorPane");
 
                             this.etradeWebView.setVisible(true);
-                            this.logger.info(String.format("Made WebView visible again in the E*TRADE AnchorPane (to confirm BetaHedger access to E*TRADE account)"));
+                            logger.info("Made WebView visible again in the E*TRADE AnchorPane (to confirm BetaHedger access to E*TRADE account)");
                         }
                     } else {
                         if (this.etradeWebView.isVisible()){
                             this.etradeWebView.setVisible(false);
-                            this.logger.info(String.format("Made WebView invisible"));
+                            logger.info("Made WebView invisible");
                         }
 
                         if (this.webViewStackPane.lookup(String.format("#%s",this.LOADING_VBOX_ID)) == null) {
 
-                            this.logger.info(String.format("Determining Loading VBox Label text..."));
+                            logger.info("Determining Loading VBox Label text...");
                             if (urlAddress.contains(this.ETRADE_VERIFY_ADDRESS_SUBSTRING))
                                 this.SetLoadingVBoxWithLabelText("Loading...");
                             else
                                 this.SetLoadingVBoxWithLabelText("Authenticating...");
 
                             this.webViewStackPane.getChildren().add(this.loadingVBox);
-                            this.logger.info(String.format("Added 'Loading' VBox to E*TRADE AnchorPane with text {%s}\t{%s}",this.loadingLabel.getText(), loadingLabel.toString()));
+                            logger.info(String.format("Added 'Loading' VBox to E*TRADE AnchorPane with text {%s}\t{%s}",this.loadingLabel.getText(), loadingLabel.toString()));
                         }
                     }
 
                     /** If the page is the betahedger / callback url, grab the verification code */
                     if (urlAddress.contains(this.BETAHEDGER_ADDRESS_SUBSTRING)) {
-                        this.logger.info(String.format("Received BetaHedger callback URL, getting parameters: {Callback URL {%s}}", urlAddress));
+                        logger.info(String.format("Received BetaHedger callback URL, getting parameters: {Callback URL {%s}}", urlAddress));
                         this.verificationCodeFromCallback = this.getQueryMapFromUrl(urlAddress).get(this.OAUTH_VERIFIER);
-                        this.logger.info(String.format("Received verification code from callback {Callback URL {%s}} {Code {%s}}",
+                        logger.info(String.format("Received verification code from callback {Callback URL {%s}} {Code {%s}}",
                                 this.etradeWebEngine.getLocation(),
                                 this.verificationCodeFromCallback));
                         this.AuthorizeCodeAndLaunchMainController();
@@ -121,7 +121,7 @@ public class LoginController implements Initializable{
 
     private void InitializeLoadingVBox(){
         if (this.loadingVBox == null) {
-            this.logger.info(String.format("Creating 'Loading' VBox for the E*TRADE AnchorPane..."));
+            logger.info("Creating 'Loading' VBox for the E*TRADE AnchorPane...");
             this.loadingLabel = new Label();
             this.loadingSpinner = new JFXSpinner();
             this.loadingVBox = new VBox();
@@ -132,7 +132,7 @@ public class LoginController implements Initializable{
             this.loadingVBox.getChildren().add(this.loadingSpinner);
             this.loadingVBox.setId(this.LOADING_VBOX_ID);
             this.loadingVBox.setAlignment(Pos.CENTER);
-            this.logger.info(String.format("'Loading' VBox created {%s}", this.loadingVBox.toString()));
+            logger.info(String.format("'Loading' VBox created {%s}", this.loadingVBox.toString()));
         }
     }
 
@@ -140,13 +140,13 @@ public class LoginController implements Initializable{
         if (this.loadingVBox == null)
             this.InitializeLoadingVBox();
         this.loadingLabel.setText(labelText);
-        this.logger.info(String.format("Set 'Loading' label text to {%s}", labelText));
+        logger.info(String.format("Set 'Loading' label text to {%s}", labelText));
     }
 
     private void AuthorizeCodeAndLaunchMainController(){
-        this.logger.info(String.format("Authorizing using passcode: {%s}", this.verificationCodeFromCallback));
+        logger.info(String.format("Authorizing using passcode: {%s}", this.verificationCodeFromCallback));
         this.connectionModel.setAccessToken(this.verificationCodeFromCallback);
-        this.logger.info(String.format("Success! Created Authorized Request"));
+        logger.info("Success! Created Authorized Request");
 
         /**
          * Create Main Controller and pass Authorized Access Token / Token Secret
@@ -167,7 +167,7 @@ public class LoginController implements Initializable{
             Window loginWindow = this.etradeWebView.getScene().getWindow();
             loginWindow.hide();
         } catch (Exception e) {
-            this.logger.error(ExceptionUtils.getStackTrace(e));
+            logger.error(ExceptionUtils.getStackTrace(e));
         }
     }
 
@@ -189,17 +189,17 @@ public class LoginController implements Initializable{
                         String key = parameterPair[0];
                         String value = parameterPair[1];
                         parameterMap.put(key, value);
-                        this.logger.info(String.format("Value added to URL parameter hashmap: {key {%s}} {value {%s}}", key,value));
+                        logger.info(String.format("Value added to URL parameter hashmap: {key {%s}} {value {%s}}", key,value));
                     }
                     return parameterMap;
                 }
             }
             else {
-                this.logger.info(String.format("No parameters from provided URL: {%s}",url));
+                logger.info(String.format("No parameters from provided URL: {%s}",url));
             }
         }
         catch (Throwable e){
-            this.logger.error(ExceptionUtils.getStackTrace(e));
+            logger.error(ExceptionUtils.getStackTrace(e));
         }
         return null;
     }
