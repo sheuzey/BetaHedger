@@ -51,7 +51,7 @@ public class LoginController implements Initializable{
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         logger.info("Login Screen created, initializing 'loading' spinner and label...");
-        this.InitializeLoadingVBox();
+        this.initializeLoadingVBox();
 
         /**
          * Set client, request and environment and get verification URI
@@ -98,9 +98,9 @@ public class LoginController implements Initializable{
 
                             logger.info("Determining Loading VBox Label text...");
                             if (urlAddress.contains(this.ETRADE_VERIFY_ADDRESS_SUBSTRING))
-                                this.SetLoadingVBoxWithLabelText("Loading...");
+                                this.setLoadingVBoxWithLabelText("Loading...");
                             else
-                                this.SetLoadingVBoxWithLabelText("Authenticating...");
+                                this.setLoadingVBoxWithLabelText("Authenticating...");
 
                             this.webViewStackPane.getChildren().add(this.loadingVBox);
                             logger.info(String.format("Added 'Loading' VBox to E*TRADE AnchorPane with text {%s}\t{%s}",this.loadingLabel.getText(), loadingLabel.toString()));
@@ -114,12 +114,12 @@ public class LoginController implements Initializable{
                         logger.info(String.format("Received verification code from callback {Callback URL {%s}} {Code {%s}}",
                                 this.etradeWebEngine.getLocation(),
                                 this.verificationCodeFromCallback));
-                        this.AuthorizeCodeAndLaunchMainController();
+                        this.authorizeCodeAndLaunchMainController();
                     }
                 });
     }
 
-    private void InitializeLoadingVBox(){
+    private void initializeLoadingVBox(){
         if (this.loadingVBox == null) {
             logger.info("Creating 'Loading' VBox for the E*TRADE AnchorPane...");
             this.loadingLabel = new Label();
@@ -136,14 +136,14 @@ public class LoginController implements Initializable{
         }
     }
 
-    private void SetLoadingVBoxWithLabelText(String labelText){
+    private void setLoadingVBoxWithLabelText(String labelText){
         if (this.loadingVBox == null)
-            this.InitializeLoadingVBox();
+            this.initializeLoadingVBox();
         this.loadingLabel.setText(labelText);
         logger.info(String.format("Set 'Loading' label text to {%s}", labelText));
     }
 
-    private void AuthorizeCodeAndLaunchMainController(){
+    private void authorizeCodeAndLaunchMainController(){
         logger.info(String.format("Authorizing using passcode: {%s}", this.verificationCodeFromCallback));
         this.connectionModel.setAccessToken(this.verificationCodeFromCallback);
         logger.info("Success! Created Authorized Request");
@@ -156,11 +156,12 @@ public class LoginController implements Initializable{
             FXMLLoader mainLoader = new FXMLLoader(getClass().getResource("MainController.fxml"));
             BorderPane mainBorderPane = mainLoader.load();
 
-            MainController mainController = mainLoader.getController();
-            mainController.setClientRequestWithAccessToken(this.connectionModel.getRequestWithAccessToken());
             Stage mainStage = new Stage();
             mainStage.setTitle("BetaHedger");
             mainStage.setScene(new Scene(mainBorderPane));
+
+            MainController mainController = mainLoader.getController();
+            mainController.setClientRequestWithAccessToken(this.connectionModel.getRequestWithAccessToken());
             mainStage.show();
 
             //Get login window and hide
