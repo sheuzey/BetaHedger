@@ -1,2 +1,2 @@
-# BetaHedger
-REST-based API
+# Genesis
+Java trading app, utilizing E*TRADEs REST-based API
