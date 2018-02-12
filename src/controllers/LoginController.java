@@ -1,4 +1,4 @@
-/**
+package controllers; /**
  * Created by Stephen on 3/6/17.
  */
 
@@ -18,6 +18,7 @@ import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 import javafx.stage.Window;
+import model.ConnectionModel;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.commons.lang.exception.ExceptionUtils;
@@ -40,7 +41,7 @@ public class LoginController implements Initializable{
     private final String ETRADE_LOGIN_ADDRESS_SUBSTRING = "authorize";
     private final String ETRADE_VERIFY_ADDRESS_SUBSTRING = "TradingAPICustomerInfo";
     private final String ETRADE_WELCOME_ADDRESS_SUBSTRING = "welcomecenter";
-    private final String BETAHEDGER_ADDRESS_SUBSTRING = "betahedger";
+    private final String GENESIS_ADDRESS_SUBSTRING = "betahedger";      //TODO Update Callback URL w/E*TRADE Support
     private final String OAUTH_VERIFIER = "oauth_verifier";
     private final String LOADING_VBOX_ID = "LoadingVboxId";
 
@@ -51,22 +52,21 @@ public class LoginController implements Initializable{
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         logger.info("Login Screen created, initializing 'loading' spinner and label...");
-        this.initializeLoadingVBox();
+        initializeLoadingVBox();
 
         /**
          * Set client, request and environment and get verification URI
          */
-        this.connectionModel = new ConnectionModel();
-        String verificationURI = this.connectionModel.getVerificationURI().toString();
+        connectionModel = new ConnectionModel();
+        String verificationURI = connectionModel.getVerificationURI().toString();
 
-        this.etradeWebEngine = this.etradeWebView.getEngine();
-        this.etradeWebEngine.load(verificationURI);
+        etradeWebEngine = etradeWebView.getEngine();
 
         etradeWebEngine.getLoadWorker().stateProperty().addListener(
                 (observable, oldValue, newValue) -> {
 
                     /** Get current URL address */
-                    String urlAddress = this.etradeWebEngine.getLocation();
+                    String urlAddress = etradeWebEngine.getLocation();
 
                     logger.info(String.format("WebEngine state changed:\t {%s}\t-->\t{%s}\t{New Address: %s}", oldValue,newValue, urlAddress));
 
@@ -77,75 +77,80 @@ public class LoginController implements Initializable{
                      * If the page did not succeed, remove the webview add the loading label (if the loading label isn't already shown)
                     */
                     if (Worker.State.SUCCEEDED.equals(newValue)) {
-                        if (urlAddress.contains(this.ETRADE_WELCOME_ADDRESS_SUBSTRING) ||
-                                (!urlAddress.contains(this.ETRADE_VERIFY_ADDRESS_SUBSTRING) && !urlAddress.contains(this.ETRADE_LOGIN_ADDRESS_SUBSTRING))) {
+                        if (urlAddress.contains(ETRADE_WELCOME_ADDRESS_SUBSTRING) ||
+                                (!urlAddress.contains(ETRADE_VERIFY_ADDRESS_SUBSTRING) && !urlAddress.contains(ETRADE_LOGIN_ADDRESS_SUBSTRING))) {
                             logger.info(String.format("Loaded an E*TRADE page. Reloading again to go to verification page {Current Address {%s}}", urlAddress));
-                            this.etradeWebEngine.load(verificationURI);
+                            etradeWebEngine.load(verificationURI);
                         } else {
-                            this.webViewStackPane.getChildren().remove(this.webViewStackPane.lookup(String.format("#%s",this.LOADING_VBOX_ID)));
+                            webViewStackPane.getChildren().remove(webViewStackPane.lookup(String.format("#%s",LOADING_VBOX_ID)));
                             logger.info("Removed 'Loading' label from E*TRADE AnchorPane");
 
-                            this.etradeWebView.setVisible(true);
-                            logger.info("Made WebView visible again in the E*TRADE AnchorPane (to confirm BetaHedger access to E*TRADE account)");
+                            etradeWebView.setVisible(true);
+                            logger.info("Made WebView visible again in the E*TRADE AnchorPane (to confirm Genesis access to E*TRADE account)");
                         }
                     } else {
-                        if (this.etradeWebView.isVisible()){
-                            this.etradeWebView.setVisible(false);
+                        if (etradeWebView.isVisible()){
+                            etradeWebView.setVisible(false);
                             logger.info("Made WebView invisible");
                         }
 
-                        if (this.webViewStackPane.lookup(String.format("#%s",this.LOADING_VBOX_ID)) == null) {
+                        if (webViewStackPane.lookup(String.format("#%s",LOADING_VBOX_ID)) == null) {
 
                             logger.info("Determining Loading VBox Label text...");
-                            if (urlAddress.contains(this.ETRADE_VERIFY_ADDRESS_SUBSTRING))
-                                this.setLoadingVBoxWithLabelText("Loading...");
+                            if (urlAddress.contains(ETRADE_VERIFY_ADDRESS_SUBSTRING))
+                                setLoadingVBoxWithLabelText("Loading...");
                             else
-                                this.setLoadingVBoxWithLabelText("Authenticating...");
+                                setLoadingVBoxWithLabelText("Authenticating...");
 
-                            this.webViewStackPane.getChildren().add(this.loadingVBox);
-                            logger.info(String.format("Added 'Loading' VBox to E*TRADE AnchorPane with text {%s}\t{%s}",this.loadingLabel.getText(), loadingLabel.toString()));
+                            webViewStackPane.getChildren().add(loadingVBox);
+                            logger.info(String.format("Added 'Loading' VBox to E*TRADE AnchorPane with text {%s}\t{%s}",loadingLabel.getText(), loadingLabel.toString()));
                         }
                     }
 
-                    /** If the page is the betahedger / callback url, grab the verification code */
-                    if (urlAddress.contains(this.BETAHEDGER_ADDRESS_SUBSTRING)) {
-                        logger.info(String.format("Received BetaHedger callback URL, getting parameters: {Callback URL {%s}}", urlAddress));
-                        this.verificationCodeFromCallback = this.getQueryMapFromUrl(urlAddress).get(this.OAUTH_VERIFIER);
+                    /** If the page is the genesis / callback url, grab the verification code */
+                    if (urlAddress.contains(GENESIS_ADDRESS_SUBSTRING)) {
+                        logger.info(String.format("Received Genesis callback URL, getting parameters: {Callback URL {%s}}", urlAddress));
+                        verificationCodeFromCallback = getQueryMapFromUrl(urlAddress).get(OAUTH_VERIFIER);
                         logger.info(String.format("Received verification code from callback {Callback URL {%s}} {Code {%s}}",
-                                this.etradeWebEngine.getLocation(),
-                                this.verificationCodeFromCallback));
-                        this.authorizeCodeAndLaunchMainController();
+                                etradeWebEngine.getLocation(),
+                                verificationCodeFromCallback));
+                        authorizeCodeAndLaunchMainController();
                     }
                 });
+        etradeWebView.setVisible(false);
+
+        setLoadingVBoxWithLabelText("Loading E*TRADE Login Screen...");
+        webViewStackPane.getChildren().add(loadingVBox);
+        etradeWebEngine.load(verificationURI);
     }
 
     private void initializeLoadingVBox(){
-        if (this.loadingVBox == null) {
+        if (loadingVBox == null) {
             logger.info("Creating 'Loading' VBox for the E*TRADE AnchorPane...");
-            this.loadingLabel = new Label();
-            this.loadingSpinner = new JFXSpinner();
-            this.loadingVBox = new VBox();
+            loadingLabel = new Label();
+            loadingSpinner = new JFXSpinner();
+            loadingVBox = new VBox();
 
-            this.loadingLabel.setFont(Font.font("Geneva", 25));
+            loadingLabel.setFont(Font.font("Geneva", 25));
 
-            this.loadingVBox.getChildren().add(this.loadingLabel);
-            this.loadingVBox.getChildren().add(this.loadingSpinner);
-            this.loadingVBox.setId(this.LOADING_VBOX_ID);
-            this.loadingVBox.setAlignment(Pos.CENTER);
-            logger.info(String.format("'Loading' VBox created {%s}", this.loadingVBox.toString()));
+            loadingVBox.getChildren().add(loadingLabel);
+            loadingVBox.getChildren().add(loadingSpinner);
+            loadingVBox.setId(LOADING_VBOX_ID);
+            loadingVBox.setAlignment(Pos.CENTER);
+            logger.info(String.format("'Loading' VBox created {%s}", loadingVBox.toString()));
         }
     }
 
     private void setLoadingVBoxWithLabelText(String labelText){
-        if (this.loadingVBox == null)
-            this.initializeLoadingVBox();
-        this.loadingLabel.setText(labelText);
+        if (loadingVBox == null)
+            initializeLoadingVBox();
+        loadingLabel.setText(labelText);
         logger.info(String.format("Set 'Loading' label text to {%s}", labelText));
     }
 
     private void authorizeCodeAndLaunchMainController(){
-        logger.info(String.format("Authorizing using passcode: {%s}", this.verificationCodeFromCallback));
-        this.connectionModel.setAccessToken(this.verificationCodeFromCallback);
+        logger.info(String.format("Authorizing using passcode: {%s}", verificationCodeFromCallback));
+        connectionModel.setAccessToken(verificationCodeFromCallback);
         logger.info("Success! Created Authorized Request");
 
         /**
@@ -153,19 +158,16 @@ public class LoginController implements Initializable{
          */
         try {
 
-            FXMLLoader mainLoader = new FXMLLoader(getClass().getResource("MainController.fxml"));
+            FXMLLoader mainLoader = new FXMLLoader(getClass().getResource("../views/MainController.fxml"), connectionModel);
             BorderPane mainBorderPane = mainLoader.load();
 
             Stage mainStage = new Stage();
-            mainStage.setTitle("BetaHedger");
+            mainStage.setTitle("Genesis");
             mainStage.setScene(new Scene(mainBorderPane));
-
-            MainController mainController = mainLoader.getController();
-            mainController.setClientRequestWithAccessToken(this.connectionModel.getRequestWithAccessToken());
             mainStage.show();
 
             //Get login window and hide
-            Window loginWindow = this.etradeWebView.getScene().getWindow();
+            Window loginWindow = etradeWebView.getScene().getWindow();
             loginWindow.hide();
         } catch (Exception e) {
             logger.error(ExceptionUtils.getStackTrace(e));

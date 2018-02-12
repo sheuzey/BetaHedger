@@ -14,8 +14,8 @@
             </PatternLayout>
         </Console>
         <RollingRandomAccessFile name="RollingRandomAccessFile-Appender"
-                     fileName="${log-path}/BetaHedger.log"
-                     filePattern="${archive}/BetaHedger.%d{yyyy-MM-dd}.log.gz">
+                     fileName="${log-path}/Genesis.log"
+                     filePattern="${archive}/Genesis.%d{yyyy-MM-dd}.log.gz">
             <PatternLayout pattern="[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %msg%n" />
             <Policies>
                 <TimeBasedTriggeringPolicy/>
@@ -26,13 +26,16 @@
     </Appenders>
 
     <Loggers>
-        <Logger name="BetaHedgerInit" level="debug">
+        <Logger name="GenesisInit" level="debug">
             <AppenderRef ref="RollingRandomAccessFile-Appender"/>
         </Logger>
-        <Logger name="LoginController" level="debug">
+        <Logger name="controllers.LoginController" level="debug">
             <AppenderRef ref="RollingRandomAccessFile-Appender"/>
         </Logger>
-        <Logger name="ConnectionModel" level="debug">
+        <Logger name="model.ConnectionModel" level="debug">
+            <AppenderRef ref="RollingRandomAccessFile-Appender"/>
+        </Logger>
+        <Logger name="controllers.MainController" level="debug">
             <AppenderRef ref="RollingRandomAccessFile-Appender"/>
         </Logger>
         <Root level="debug">
