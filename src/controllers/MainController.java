@@ -33,19 +33,15 @@ public class MainController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        setupMenuPopups();
         setupMenuListItems();
+        setupMenuPopups();
+        assignEventsForMenuItems();
         showAccountInfo();
 
         connectionModel = (ConnectionModel)resources.getObject("model.ConnectionModel");
         logger.info(String.format("Received connection model from Login Controller {%s}", connectionModel));
         clientRequestWithAccessToken = connectionModel.getRequestWithAccessToken();
         logger.info(String.format("Request with Access Token set {%s}", clientRequestWithAccessToken));
-    }
-
-    //TODO: Setup the JFXPopups so that the objects are persisted
-    private void setupMenuPopups(){
-
     }
 
     private void setupPopupForButton(Node node, JFXButton button, JFXPopup popup){
@@ -57,13 +53,29 @@ public class MainController implements Initializable {
                 button.getLayoutY() + button.getHeight());
     }
 
-    //TODO Setup the main menu list
     private void setupMenuListItems(){
 
-        /** Create Popup buttons for when the 'File' button is pressed */
+        // Create 'File' Menu items
         saveWorkspaceButton = new JFXButton("Save Workspace");
         loadWorkspaceButton = new JFXButton("Load Workspace");
 
+        // Create 'Orders' Menu items
+        orderBlotterButton = new JFXButton("Order Blotter");
+        newOrderButton = new JFXButton("New Order");
+
+        // Create 'Market Data' Menu items
+        newQuoteButton = new JFXButton("New Quote");
+    }
+
+    private void setupMenuPopups(){
+        menuFilePopup = new JFXPopup(new VBox(saveWorkspaceButton,loadWorkspaceButton));
+        menuOrderPopup = new JFXPopup(new VBox(newOrderButton, orderBlotterButton));
+        menuMarketDataPopup = new JFXPopup(new VBox(newQuoteButton));
+    }
+
+    private void assignEventsForMenuItems() {
+
+        //'File' Menu item events
         saveWorkspaceButton.setOnMouseClicked(event -> {
             logger.info(String.format("'%s' button clicked", saveWorkspaceButton.getText()));
         });
@@ -72,12 +84,10 @@ public class MainController implements Initializable {
         });
 
         menuFileButton.setOnMouseClicked(event ->
-                setupPopupForButton(menuHBox, menuFileButton, new JFXPopup(new VBox(saveWorkspaceButton, loadWorkspaceButton))));
+                setupPopupForButton(menuHBox, menuFileButton, menuFilePopup));
 
-        /** Create popup buttons for when the 'Orders' button is pressed */
-        orderBlotterButton = new JFXButton("Order Blotter");
-        newOrderButton = new JFXButton("New Order");
 
+        //'Order' Menu item events
         newOrderButton.setOnMouseClicked(event -> {
             logger.info(String.format("'%s' button clicked", newOrderButton.getText()));
         });
@@ -87,18 +97,18 @@ public class MainController implements Initializable {
         });
 
         menuOrderButton.setOnMouseClicked(event ->
-                setupPopupForButton(menuHBox, menuOrderButton, new JFXPopup(new VBox(newOrderButton, orderBlotterButton))));
+                setupPopupForButton(menuHBox, menuOrderButton, menuOrderPopup));
 
-        /** Create popup buttons for when the 'Market Data' button is pressed */
-        newQuoteButton = new JFXButton("New Quote");
+
+        //'Order' Menu item events
         newQuoteButton.setOnMouseClicked(event -> {
             logger.info(String.format("'%s' button clicked", newQuoteButton.getText()));
         });
 
         menuMarketDataButton.setOnMouseClicked(event ->
-                setupPopupForButton(menuHBox, menuMarketDataButton, new JFXPopup(new VBox(newQuoteButton))));
-
+                setupPopupForButton(menuHBox, menuMarketDataButton, menuMarketDataPopup));
     }
+
 
     //TODO Create the layout for showing the user account
     private void showAccountInfo(){

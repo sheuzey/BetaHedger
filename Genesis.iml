@@ -13,7 +13,6 @@
     <orderEntry type="library" name="commons-codec-1" level="project" />
     <orderEntry type="library" name="commons-httpclient-3" level="project" />
     <orderEntry type="library" name="commons-httpclient-contrib-ssl" level="project" />
-    <orderEntry type="library" name="commons-lang-2" level="project" />
     <orderEntry type="library" name="commons-logging-1.0" level="project" />
     <orderEntry type="library" name="xstream" level="project" />
     <orderEntry type="library" name="log4j-api-2.7" level="project" />
@@ -21,5 +20,6 @@
     <orderEntry type="library" name="disruptor-3.3.6" level="project" />
     <orderEntry type="library" name="log4j-1.2.17" level="project" />
     <orderEntry type="library" name="jfoenix" level="project" />
+    <orderEntry type="library" name="commons-lang3-3" level="project" />
   </component>
 </module>

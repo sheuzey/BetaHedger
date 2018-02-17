@@ -19,9 +19,9 @@ import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import model.ConnectionModel;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.apache.commons.lang.exception.ExceptionUtils;
 
 import java.net.URL;
 import java.util.*;
