@@ -2,6 +2,10 @@ package controllers; /**
  * Created by Stephen on 3/27/17.
  */
 
+import com.etrade.etws.account.Account;
+import com.etrade.etws.account.AccountBalanceResponse;
+import com.etrade.etws.account.AccountListResponse;
+import com.etrade.etws.sdk.client.AccountsClient;
 import com.etrade.etws.sdk.client.ClientRequest;
 import com.jfoenix.controls.*;
 import javafx.fxml.FXML;
@@ -10,10 +14,12 @@ import javafx.scene.Node;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import model.ConnectionModel;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class MainController implements Initializable {
@@ -26,6 +32,9 @@ public class MainController implements Initializable {
     private JFXButton saveWorkspaceButton, loadWorkspaceButton, orderBlotterButton, newOrderButton, newQuoteButton;
     private JFXPopup menuFilePopup, menuOrderPopup, menuMarketDataPopup;
 
+    private AccountsClient accountsClient;
+    private List<AccountBalanceResponse> accountBalances;
+    private AccountListResponse accountList;
     private ClientRequest clientRequestWithAccessToken;
     private ConnectionModel connectionModel;
     private static final Logger logger = LogManager.getLogger(MainController.class);
@@ -33,15 +42,18 @@ public class MainController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        setupMenuListItems();
-        setupMenuPopups();
-        assignEventsForMenuItems();
-        showAccountInfo();
-
         connectionModel = (ConnectionModel)resources.getObject("model.ConnectionModel");
         logger.info(String.format("Received connection model from Login Controller {%s}", connectionModel));
         clientRequestWithAccessToken = connectionModel.getRequestWithAccessToken();
         logger.info(String.format("Request with Access Token set {%s}", clientRequestWithAccessToken));
+
+        setupMenuListItems();
+        setupMenuPopups();
+        assignEventsForMenuItems();
+
+        //Initialize E*TRADE account objects
+        accountsClient = new AccountsClient(clientRequestWithAccessToken);
+        setAccountList();
     }
 
     private void setupPopupForButton(Node node, JFXButton button, JFXPopup popup){
@@ -111,8 +123,25 @@ public class MainController implements Initializable {
 
 
     //TODO Create the layout for showing the user account
-    private void showAccountInfo(){
-
+    private void setAccountList(){
+        logger.info("Getting accounts...");
+        Thread getAccountThread = new Thread(() -> {
+            try {
+                accountList = accountsClient.getAccountList();
+                for (Account account : accountList.getResponse()) {
+                    logger.info(String.format("Received account : {Desc: %s} {Id: %s} {Margin Level: %s} {Net Account Value: %s} {Registration Type: %s}",
+                            account.getAccountDesc(),
+                            account.getAccountId(),
+                            account.getMarginLevel(),
+                            account.getNetAccountValue(),
+                            account.getRegistrationType()));
+                }
+            } catch (Throwable e) {
+                logger.error(ExceptionUtils.getStackTrace(e));
+            }
+        });
+        getAccountThread.setName("Set Accounts Thread");
+        getAccountThread.start();
     }
 
 }
