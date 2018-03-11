@@ -8,6 +8,7 @@ import com.etrade.etws.sdk.client.ClientRequest;
 import com.jfoenix.controls.*;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -73,6 +74,8 @@ public class MainController implements Initializable {
         // Create 'Orders' Menu items
         orderBlotterButton = new JFXButton("Order Blotter");
         newOrderButton = new JFXButton("New Order");
+        newOrderButton.setMaxWidth(Double.MAX_VALUE);
+        newOrderButton.setAlignment(Pos.BASELINE_LEFT);
 
         // Create 'Market Data' Menu items
         newQuoteButton = new JFXButton("New Quote");
