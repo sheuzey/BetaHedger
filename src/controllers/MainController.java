@@ -2,9 +2,7 @@ package controllers; /**
  * Created by Stephen on 3/27/17.
  */
 
-import com.etrade.etws.account.Account;
-import com.etrade.etws.account.AccountBalanceResponse;
-import com.etrade.etws.account.AccountListResponse;
+import com.etrade.etws.account.*;
 import com.etrade.etws.sdk.client.AccountsClient;
 import com.etrade.etws.sdk.client.ClientRequest;
 import com.jfoenix.controls.*;
@@ -14,11 +12,12 @@ import javafx.scene.Node;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import model.ConnectionModel;
-import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.apache.commons.lang.exception.ExceptionUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -34,6 +33,7 @@ public class MainController implements Initializable {
 
     private AccountsClient accountsClient;
     private List<AccountBalanceResponse> accountBalances;
+    private List<AccountPositionsResponse> accountPositions;
     private AccountListResponse accountList;
     private ClientRequest clientRequestWithAccessToken;
     private ConnectionModel connectionModel;
@@ -52,8 +52,7 @@ public class MainController implements Initializable {
         assignEventsForMenuItems();
 
         //Initialize E*TRADE account objects
-        accountsClient = new AccountsClient(clientRequestWithAccessToken);
-        setAccountList();
+        setAccountListBalancesAndPositions();
     }
 
     private void setupPopupForButton(Node node, JFXButton button, JFXPopup popup){
@@ -121,12 +120,16 @@ public class MainController implements Initializable {
                 setupPopupForButton(menuHBox, menuMarketDataButton, menuMarketDataPopup));
     }
 
-
     //TODO Create the layout for showing the user account
-    private void setAccountList(){
-        logger.info("Getting accounts...");
+
+
+    private void setAccountListBalancesAndPositions() {
+        accountsClient = new AccountsClient(clientRequestWithAccessToken);
+        accountBalances = new ArrayList<>();
+        accountPositions = new ArrayList<>();
         Thread getAccountThread = new Thread(() -> {
             try {
+                logger.info("Getting accounts, balances and positions...");
                 accountList = accountsClient.getAccountList();
                 for (Account account : accountList.getResponse()) {
                     logger.info(String.format("Received account : {Desc: %s} {Id: %s} {Margin Level: %s} {Net Account Value: %s} {Registration Type: %s}",
@@ -135,13 +138,26 @@ public class MainController implements Initializable {
                             account.getMarginLevel(),
                             account.getNetAccountValue(),
                             account.getRegistrationType()));
+
+                    AccountBalanceResponse balanceResponse = accountsClient.getAccountBalance(account.getAccountId());
+                    accountBalances.add(balanceResponse);
+                    Balance balance = balanceResponse.getAccountBalance();
+                    logger.info(String.format("Received account balance : {Id: %s} {Total Securities Mkt Value: %s} {Net Cash %s}",
+                            balanceResponse.getAccountId(),
+                            balance.getTotalSecuritiesMktValue(),
+                            balance.getNetCash()));
+
+                    AccountPositionsResponse positionsResponse = accountsClient.getAccountPositions(account.getAccountId(),new AccountPositionsRequest());
+                    accountPositions.add(positionsResponse);
+                    logger.info(String.format("Received %s positions for account %s",
+                            positionsResponse.getResponse().size(),
+                            account.getAccountId()));
                 }
             } catch (Throwable e) {
                 logger.error(ExceptionUtils.getStackTrace(e));
             }
         });
-        getAccountThread.setName("Set Accounts Thread");
+        getAccountThread.setName("Get Accounts Info Thread");
         getAccountThread.start();
     }
-
 }
