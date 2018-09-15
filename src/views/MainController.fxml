@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
 <?import com.jfoenix.controls.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.MainController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="31.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.MainController">
    <top>
       <HBox fx:id="menuHBox" prefHeight="27.0" prefWidth="600.0" styleClass="menuList" stylesheets="@../../config/GenesisStyles.css" BorderPane.alignment="CENTER">
          <children>
             <JFXButton fx:id="menuFileButton" text="File" />
             <JFXButton fx:id="menuOrderButton" text="Orders" />
             <JFXButton fx:id="menuMarketDataButton" text="Market Data" />
+            <JFXButton fx:id="menuAccountsButton" text="Accounts" />
          </children>
       </HBox>
    </top>
