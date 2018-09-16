@@ -9,16 +9,19 @@ import com.jfoenix.controls.*;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.ReadOnlyStringWrapper;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeTableColumn;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import model.ConnectionModel;
+import model.RecursiveAccount;
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -35,7 +38,11 @@ public class MainController implements Initializable {
     private HBox menuHBox;
     @FXML
     private JFXButton menuFileButton, menuOrderButton, menuMarketDataButton, menuAccountsButton;
-    private Scene mainScene;
+
+    @FXML
+    private StackPane mainStackPane;
+
+    private JFXTreeTableView<RecursiveAccount> accountsTreeTableView;
 
     private JFXButton saveWorkspaceButton, loadWorkspaceButton, orderBlotterButton, newOrderButton, newQuoteButton;
     private JFXPopup menuFilePopup, menuOrderPopup, menuMarketDataPopup;
@@ -139,29 +146,47 @@ public class MainController implements Initializable {
         menuAccountsButton.setOnMouseClicked( event -> {
             logger.info(String.format("'%s' button clicked", menuAccountsButton.getText()));
 
-            //Setup accounts tree table columns
-            JFXTreeTableColumn<Account, String> accountNameColumn = new JFXTreeTableColumn<>("Account");
-            accountNameColumn.setCellValueFactory((TreeTableColumn.CellDataFeatures<Account, String> param) -> {
-                if (accountNameColumn.validateValue(param)) return new ReadOnlyStringWrapper(param.getValue().getValue().getAccountDesc());
-                else return accountNameColumn.getComputedValue(param);
+            //Setup accounts tree table columns with recursive account wrapper class
+            JFXTreeTableColumn<RecursiveAccount, String> accountNameColumn = new JFXTreeTableColumn<>("Account");
+            accountNameColumn.setPrefWidth(150);
+            accountNameColumn.setCellValueFactory((TreeTableColumn.CellDataFeatures<RecursiveAccount, String> param) -> {
+                //if (accountNameColumn.validateValue(param))
+                    return new ReadOnlyStringWrapper(param.getValue().getValue().getAccount().getAccountDesc());
+                //else return accountNameColumn.getComputedValue(param);
             });
 
-            JFXTreeTableColumn<Account, String> accountTypeColumn = new JFXTreeTableColumn<>("Type");
-            accountTypeColumn.setCellValueFactory((TreeTableColumn.CellDataFeatures<Account, String> param) -> {
-                if (accountTypeColumn.validateValue(param)) return new ReadOnlyStringWrapper(param.getValue().getValue().getRegistrationType());
-                else return accountTypeColumn.getComputedValue(param);
+            JFXTreeTableColumn<RecursiveAccount, String> accountTypeColumn = new JFXTreeTableColumn<>("Type");
+            accountTypeColumn.setPrefWidth(150);
+            accountTypeColumn.setCellValueFactory((TreeTableColumn.CellDataFeatures<RecursiveAccount, String> param) -> {
+                //if (accountTypeColumn.validateValue(param))
+                    return new ReadOnlyStringWrapper(param.getValue().getValue().getAccount().getRegistrationType());
+                //else return accountTypeColumn.getComputedValue(param);
             });
 
-            JFXTreeTableColumn<Account, BigDecimal> accountValueColumn = new JFXTreeTableColumn<>("Net Value");
-            accountValueColumn.setCellValueFactory((TreeTableColumn.CellDataFeatures<Account, BigDecimal> param) -> {
-                if (accountValueColumn.validateValue(param)) return new ReadOnlyObjectWrapper<>(param.getValue().getValue().getNetAccountValue());
-                else return accountValueColumn.getComputedValue(param);
+            JFXTreeTableColumn<RecursiveAccount, BigDecimal> accountValueColumn = new JFXTreeTableColumn<>("Net Value");
+            accountValueColumn.setPrefWidth(150);
+            accountValueColumn.setCellValueFactory((TreeTableColumn.CellDataFeatures<RecursiveAccount, BigDecimal> param) -> {
+                //if (accountValueColumn.validateValue(param))
+                    return new ReadOnlyObjectWrapper<>(param.getValue().getValue().getAccount().getNetAccountValue());
+                //else return accountValueColumn.getComputedValue(param);
             });
+
+            //Create observable list of recursive accounts from the account list response
+            ObservableList<RecursiveAccount> observableAccountList = FXCollections.observableArrayList();
+            for (Account account : accountList.getResponse()){
+                observableAccountList.add(new RecursiveAccount(account));
+            }
 
             //Build tree
-            final TreeItem<Account> rootTree = new RecursiveTreeObject<Account>(accountList, RecursiveTreeObject::getChildren);
+            final TreeItem<RecursiveAccount> rootTree = new RecursiveTreeItem<>(observableAccountList, RecursiveTreeObject::getChildren);
+            rootTree.setExpanded(true);
 
+            accountsTreeTableView = new JFXTreeTableView<>(rootTree);
+            accountsTreeTableView.setShowRoot(false);
+            accountsTreeTableView.setEditable(false);
+            accountsTreeTableView.getColumns().setAll(accountNameColumn, accountTypeColumn, accountValueColumn);
 
+            mainStackPane.getChildren().add(accountsTreeTableView);
         });
     }
 
