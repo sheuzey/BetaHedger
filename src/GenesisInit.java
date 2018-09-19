@@ -10,9 +10,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.*;
 
 
-public class BetaHedgerInit extends Application {
+public class GenesisInit extends Application {
 
-    private static final Logger logger = LogManager.getLogger(BetaHedgerInit.class);
+    private static final Logger logger = LogManager.getLogger(GenesisInit.class);
 
     public static void main(String[] args) {
         launch(args);
@@ -21,14 +21,14 @@ public class BetaHedgerInit extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
 
-        this.logger.info("Starting BetaHedger...");
+        logger.info("Starting Genesis Application...");
 
-        Parent root = FXMLLoader.load(getClass().getResource("LoginController.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("views/LoginController.fxml"));
+        root.getStylesheets().add(getClass().getResource("GenesisStyles.css").toExternalForm());
 
-        primaryStage.setTitle("Login");
         primaryStage.setScene(new Scene(root));
-
-        primaryStage.setTitle("BetaHedger");
+        primaryStage.setTitle("Genesis");
+        
         primaryStage.show();
     }
 }
