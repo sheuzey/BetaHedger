@@ -31,7 +31,9 @@ public class ConnectionModel extends ListResourceBundle {
     private String oauth_access_token_secret;
     private String oauth_consumer_key;
     private String oauth_consumer_secret;
+    private String envString;
     private String authorizeURL;
+    private Environment environment;
     private URI uri;
     private String oauth_verify_code;
 
@@ -44,6 +46,12 @@ public class ConnectionModel extends ListResourceBundle {
             prop.load(input);
             oauth_consumer_key = prop.getProperty("oauth_consumer_key");
             oauth_consumer_secret = prop.getProperty("oauth_consumer_secret");
+            envString = prop.getProperty("Environment");
+            switch (envString) {
+                case "SANDBOX" : environment = Environment.SANDBOX; break;
+                case "LIVE"    : environment = Environment.LIVE;    break;
+                default        : environment = Environment.SANDBOX; break;
+            }
         } catch (Throwable e) {
             logger.error(ExceptionUtils.getStackTrace(e));
         } finally {
@@ -74,7 +82,7 @@ public class ConnectionModel extends ListResourceBundle {
         request.setConsumerSecret(oauth_consumer_secret);
         logger.info(String.format("Request Created {%s}", request.toString()));
 
-        request.setEnv(Environment.SANDBOX);
+        request.setEnv(environment);
         logger.info("Environment set to " + request.getEnv());
 
         setRequestWithRequestToken();
