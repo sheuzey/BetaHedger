@@ -5,7 +5,7 @@
 <?import javafx.scene.text.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane prefHeight="630.0" prefWidth="1000.0" styleClass="login" stylesheets="@../../config/GenesisStyles.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.LoginController">
+<BorderPane prefHeight="630.0" prefWidth="1000.0" styleClass="genericGreen" stylesheets="@../../config/GenesisStyles.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.LoginController">
    <top>
       <Text mouseTransparent="true" pickOnBounds="true" strokeType="OUTSIDE" strokeWidth="0.0" text="Genesis" textAlignment="CENTER" wrappingWidth="178.21875" BorderPane.alignment="CENTER">
          <font>

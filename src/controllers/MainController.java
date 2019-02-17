@@ -7,26 +7,27 @@ import com.etrade.etws.sdk.client.AccountsClient;
 import com.etrade.etws.sdk.client.ClientRequest;
 import com.jfoenix.controls.*;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
-import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeTableColumn;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
+import javafx.stage.Stage;
+import model.Accounts.Account;
+import model.Accounts.AccountListResponse;
 import model.ConnectionModel;
-import model.RecursiveAccount;
+import model.Accounts.RecursiveAccount;
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.math.BigDecimal;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -58,7 +59,13 @@ public class MainController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        connectionModel = (ConnectionModel)resources.getObject("model.ConnectionModel");
+        try {
+            connectionModel = (ConnectionModel)resources.getObject("model.ConnectionModel");
+        } catch (Exception e) {
+            logger.error(ExceptionUtils.getStackTrace(e));
+            logger.info("Error retrieiving connection model object, continuing without one (OK for testing, BAD if you actually want to trade!");
+            connectionModel = new ConnectionModel();
+        }
         logger.info(String.format("Received connection model from Login Controller {%s}", connectionModel));
         clientRequestWithAccessToken = connectionModel.getRequestWithAccessToken();
         logger.info(String.format("Request with Access Token set {%s}", clientRequestWithAccessToken));
@@ -122,7 +129,18 @@ public class MainController implements Initializable {
 
         //'Order' Menu item events
         newOrderButton.setOnMouseClicked(event -> {
-            logger.info(String.format("'%s' button clicked", newOrderButton.getText()));
+            logger.info(String.format("'%s' button clicked, creating new order dialog...", newOrderButton.getText()));
+            try {
+                FXMLLoader newOrderLoader = new FXMLLoader(getClass().getResource("../views/NewOrderController.fxml"));
+                BorderPane newOrderBorderPane = newOrderLoader.load();
+
+                Stage newOrderStage = new Stage();
+                newOrderStage.setTitle("New Order");
+                newOrderStage.setScene(new Scene(newOrderBorderPane));
+                newOrderStage.show();
+            } catch (Exception e) {
+                logger.error(ExceptionUtils.getStackTrace(e));
+            }
         });
 
         orderBlotterButton.setOnMouseClicked(event -> {
@@ -147,8 +165,13 @@ public class MainController implements Initializable {
             logger.info(String.format("'%s' button clicked", menuAccountsButton.getText()));
 
             setupAccountsTable();
-            mainStackPane.getChildren().add(accountsTreeTableView);
-            logger.info("Accounts table added into stack pane");
+            if (mainStackPane.getChildren().contains(accountsTreeTableView)) {
+                logger.info("Accounts table already added to stack pane");
+            }
+            else {
+                mainStackPane.getChildren().add(accountsTreeTableView);
+                logger.info("Accounts table added into stack pane");
+            }
         });
     }
 
@@ -167,21 +190,21 @@ public class MainController implements Initializable {
         accountTypeColumn.setPrefWidth(150);
         accountTypeColumn.setCellValueFactory((TreeTableColumn.CellDataFeatures<RecursiveAccount, String> param) -> {
             if (accountTypeColumn.validateValue(param))
-            return new ReadOnlyStringWrapper(param.getValue().getValue().getAccount().getRegistrationType());
+            return new ReadOnlyStringWrapper(param.getValue().getValue().getAccount().getAccountType());
             else return accountTypeColumn.getComputedValue(param);
         });
 
-        JFXTreeTableColumn<RecursiveAccount, BigDecimal> accountValueColumn = new JFXTreeTableColumn<>("Net Value");
+        /*JFXTreeTableColumn<RecursiveAccount, String> accountValueColumn = new JFXTreeTableColumn<>("Net Value");
         accountValueColumn.setPrefWidth(150);
-        accountValueColumn.setCellValueFactory((TreeTableColumn.CellDataFeatures<RecursiveAccount, BigDecimal> param) -> {
+        accountValueColumn.setCellValueFactory((TreeTableColumn.CellDataFeatures<RecursiveAccount, String> param) -> {
             if (accountValueColumn.validateValue(param))
-            return new ReadOnlyObjectWrapper<>(param.getValue().getValue().getAccount().getNetAccountValue());
+            return new ReadOnlyObjectWrapper<>(NumberFormat.getCurrencyInstance().format(param.getValue().getValue().getAccount().getNetAccountValue()));
             else return accountValueColumn.getComputedValue(param);
-        });
+        });*/
 
         //Create observable list of recursive accounts from the account list response
         ObservableList<RecursiveAccount> observableAccountList = FXCollections.observableArrayList();
-        for (Account account : accountList.getResponse()){
+        for (Account account : accountList.getAccounts()){
             observableAccountList.add(new RecursiveAccount(account));
         }
 
@@ -192,7 +215,8 @@ public class MainController implements Initializable {
         accountsTreeTableView = new JFXTreeTableView<>(rootTree);
         accountsTreeTableView.setShowRoot(false);
         accountsTreeTableView.setEditable(false);
-        accountsTreeTableView.getColumns().setAll(accountNameColumn, accountTypeColumn, accountValueColumn);
+        accountsTreeTableView.getColumns().setAll(accountNameColumn,accountTypeColumn);
+        //accountsTreeTableView.getColumns().setAll(accountNameColumn, accountTypeColumn, accountValueColumn);
     }
 
 
@@ -206,14 +230,12 @@ public class MainController implements Initializable {
         Thread getAccountThread = new Thread(() -> {
             try {
                 logger.info("Getting accounts, balances and positions...");
-                accountList = accountsClient.getAccountList();
-                for (Account account : accountList.getResponse()) {
-                    logger.info(String.format("Received account : {Desc: %s} {Id: %s} {Margin Level: %s} {Net Account Value: %s} {Registration Type: %s}",
+                accountList = new AccountListResponse();
+                for (Account account : accountList.getAccounts()) {
+                    logger.info(String.format("Received account : {Desc: %s} {Id: %s} {Registration Type: %s}",
                             account.getAccountDesc(),
                             account.getAccountId(),
-                            account.getMarginLevel(),
-                            account.getNetAccountValue(),
-                            account.getRegistrationType()));
+                            account.getAccountType()));
 
                     AccountBalanceResponse balanceResponse = accountsClient.getAccountBalance(account.getAccountId());
                     accountBalances.add(balanceResponse);

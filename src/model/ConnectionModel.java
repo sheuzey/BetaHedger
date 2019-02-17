@@ -74,6 +74,8 @@ public class ConnectionModel extends ListResourceBundle {
         accessToken = null;
         authorizeURL = null;
 
+        //Incorporating ScribeJava for OAuth authentication
+
         client = OAuthClientImpl.getInstance();
         logger.info(String.format("OAuth Client created {%s}",client.toString()));
 
