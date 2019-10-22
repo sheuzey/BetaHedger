@@ -1,0 +1,23 @@
+<component name="libraryTable">
+  <library name="com.google.http-client:google-http-client-gson:1.20.0" type="repository">
+    <properties maven-id="com.google.http-client:google-http-client-gson:1.20.0" />
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../3rdParty/GoogleOAuth/google-http-client-gson-1.20.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../3rdParty/GoogleOAuth/google-http-client-1.20.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../3rdParty/GoogleOAuth/jsr305-1.3.9.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../3rdParty/GoogleOAuth/httpclient-4.0.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../3rdParty/GoogleOAuth/httpcore-4.0.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../3rdParty/GoogleOAuth/commons-logging-1.1.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../3rdParty/GoogleOAuth/commons-codec-1.3.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../3rdParty/GoogleOAuth/gson-2.1.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$PROJECT_DIR$/../3rdParty/GoogleOAuth/google-http-client-gson-1.20.0-javadoc.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../3rdParty/GoogleOAuth/google-http-client-1.20.0-javadoc.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../3rdParty/GoogleOAuth/commons-logging-1.1.1-javadoc.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../3rdParty/GoogleOAuth/commons-codec-1.3-javadoc.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../3rdParty/GoogleOAuth/gson-2.1-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES />
+  </library>
+</component>

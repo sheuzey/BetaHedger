@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXToggleButton?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.StackPane?>
+
+<BorderPane fx:id="mainBorderPane" prefHeight="359.0" prefWidth="690.0" styleClass="genericGreen" stylesheets="@../../config/GenesisStyles.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.NewOrderController">
+    <center>
+        <StackPane fx:id="newOrderStackPane" layoutX="92.0" layoutY="100.0" prefHeight="535.0" prefWidth="287.0" style="-fx-background-color: #D1D1D1;" StackPane.alignment="CENTER">
+            <BorderPane.margin>
+                <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+            </BorderPane.margin>
+            <padding>
+                <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+            </padding>
+         <children>
+            <JFXToggleButton fx:id="verbToggleButton" mnemonicParsing="false" text="Buy" />
+         </children>
+        </StackPane>
+    </center>
+</BorderPane>

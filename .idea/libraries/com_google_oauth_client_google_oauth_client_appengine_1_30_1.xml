@@ -1,0 +1,49 @@
+<component name="libraryTable">
+  <library name="com.google.oauth-client:google-oauth-client-appengine:1.30.1" type="repository">
+    <properties maven-id="com.google.oauth-client:google-oauth-client-appengine:1.30.1" />
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../3rdParty/GoogleOAuth/google-oauth-client-appengine-1.30.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../3rdParty/GoogleOAuth/google-http-client-appengine-1.30.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../3rdParty/GoogleOAuth/google-http-client-1.30.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../3rdParty/GoogleOAuth/httpclient-4.5.8.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../3rdParty/GoogleOAuth/httpcore-4.4.11.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../3rdParty/GoogleOAuth/commons-logging-1.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../3rdParty/GoogleOAuth/commons-codec-1.11.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../3rdParty/GoogleOAuth/j2objc-annotations-1.3.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../3rdParty/GoogleOAuth/opencensus-api-0.21.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../3rdParty/GoogleOAuth/grpc-context-1.19.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../3rdParty/GoogleOAuth/opencensus-contrib-http-util-0.21.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../3rdParty/GoogleOAuth/google-oauth-client-1.30.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../3rdParty/GoogleOAuth/jsr305-3.0.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../3rdParty/GoogleOAuth/guava-26.0-android.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../3rdParty/GoogleOAuth/checker-compat-qual-2.5.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../3rdParty/GoogleOAuth/error_prone_annotations-2.1.3.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../3rdParty/GoogleOAuth/animal-sniffer-annotations-1.14.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../3rdParty/GoogleOAuth/google-oauth-client-servlet-1.30.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../3rdParty/GoogleOAuth/jdo2-api-2.3-eb.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../3rdParty/GoogleOAuth/transaction-api-1.1.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$PROJECT_DIR$/../3rdParty/GoogleOAuth/google-oauth-client-appengine-1.30.1-javadoc.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../3rdParty/GoogleOAuth/google-http-client-appengine-1.30.1-javadoc.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../3rdParty/GoogleOAuth/google-http-client-1.30.1-javadoc.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../3rdParty/GoogleOAuth/httpclient-4.5.8-javadoc.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../3rdParty/GoogleOAuth/httpcore-4.4.11-javadoc.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../3rdParty/GoogleOAuth/commons-logging-1.2-javadoc.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../3rdParty/GoogleOAuth/commons-codec-1.11-javadoc.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../3rdParty/GoogleOAuth/j2objc-annotations-1.3-javadoc.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../3rdParty/GoogleOAuth/opencensus-api-0.21.0-javadoc.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../3rdParty/GoogleOAuth/grpc-context-1.19.0-javadoc.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../3rdParty/GoogleOAuth/opencensus-contrib-http-util-0.21.0-javadoc.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../3rdParty/GoogleOAuth/google-oauth-client-1.30.1-javadoc.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../3rdParty/GoogleOAuth/jsr305-3.0.2-javadoc.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../3rdParty/GoogleOAuth/guava-26.0-android-javadoc.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../3rdParty/GoogleOAuth/checker-compat-qual-2.5.2-javadoc.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../3rdParty/GoogleOAuth/error_prone_annotations-2.1.3-javadoc.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../3rdParty/GoogleOAuth/animal-sniffer-annotations-1.14-javadoc.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../3rdParty/GoogleOAuth/google-oauth-client-servlet-1.30.1-javadoc.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../3rdParty/GoogleOAuth/jdo2-api-2.3-eb-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES />
+  </library>
+</component>

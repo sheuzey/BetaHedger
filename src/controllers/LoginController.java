@@ -41,7 +41,7 @@ public class LoginController implements Initializable{
     private final String ETRADE_LOGIN_ADDRESS_SUBSTRING = "authorize";
     private final String ETRADE_VERIFY_ADDRESS_SUBSTRING = "TradingAPICustomerInfo";
     private final String ETRADE_WELCOME_ADDRESS_SUBSTRING = "welcomecenter";
-    private final String GENESIS_ADDRESS_SUBSTRING = "betahedger";      //TODO Update Callback URL w/E*TRADE Support
+    private final String GENESIS_ADDRESS_SUBSTRING = "genesistrader";
     private final String OAUTH_VERIFIER = "oauth_verifier";
     private final String LOADING_VBOX_ID = "LoadingVboxId";
 

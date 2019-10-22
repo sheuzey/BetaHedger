@@ -1,6 +1,5 @@
-package model;
+package model.Accounts;
 
-import com.etrade.etws.account.Account;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 
 public class RecursiveAccount extends RecursiveTreeObject<RecursiveAccount> {

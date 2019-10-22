@@ -2,38 +2,37 @@ package model; /**
  * Created by Stephen on 1/12/17.
  */
 
-import com.etrade.etws.sdk.client.Environment;
-import com.etrade.etws.oauth.sdk.client.IOAuthClient;
-import com.etrade.etws.oauth.sdk.client.OAuthClientImpl;
-import com.etrade.etws.oauth.sdk.common.Token;
-import com.etrade.etws.sdk.client.ClientRequest;
-
 import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.StringReader;
 import java.net.URI;
 import java.util.ListResourceBundle;
 import java.util.Properties;
-
+import com.google.api.client.auth.oauth.*;
+import com.google.api.client.http.*;
+import com.google.api.client.http.apache.ApacheHttpTransport;
+import model.Accounts.Account;
+import model.Accounts.AccountListResponse;
+import model.Accounts.Balances.BalanceResponse;
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.apache.logging.log4j.*;
+
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.Unmarshaller;
 
 
 public class ConnectionModel extends ListResourceBundle {
 
     private static final Logger logger = LogManager.getLogger(ConnectionModel.class);
 
-    private IOAuthClient client;
-    private ClientRequest request;
-    private Token requestToken;
-    private Token accessToken;
-    private String oauth_request_token;
-    private String oauth_request_token_secret;
+    private OAuthCredentialsResponse requestTokenResponse;
+    private OAuthHmacSigner signer;
+    private HttpTransport transport;
     private String oauth_access_token;
     private String oauth_access_token_secret;
     private String oauth_consumer_key;
     private String oauth_consumer_secret;
-    private String envString;
     private String authorizeURL;
-    private Environment environment;
     private URI uri;
     private String oauth_verify_code;
 
@@ -46,12 +45,6 @@ public class ConnectionModel extends ListResourceBundle {
             prop.load(input);
             oauth_consumer_key = prop.getProperty("oauth_consumer_key");
             oauth_consumer_secret = prop.getProperty("oauth_consumer_secret");
-            envString = prop.getProperty("Environment");
-            switch (envString) {
-                case "SANDBOX" : environment = Environment.SANDBOX; break;
-                case "LIVE"    : environment = Environment.LIVE;    break;
-                default        : environment = Environment.SANDBOX; break;
-            }
         } catch (Throwable e) {
             logger.error(ExceptionUtils.getStackTrace(e));
         } finally {
@@ -65,27 +58,28 @@ public class ConnectionModel extends ListResourceBundle {
             }
         }
 
-        oauth_request_token = null;
-        oauth_request_token_secret = null;
         oauth_access_token = null;
         oauth_access_token_secret = null;
         oauth_verify_code = null;
-        requestToken = null;
-        accessToken = null;
         authorizeURL = null;
 
-        client = OAuthClientImpl.getInstance();
-        logger.info(String.format("OAuth Client created {%s}",client.toString()));
+        //Trying google oauth library
+        OAuthGetTemporaryToken requestTemporaryToken = new OAuthGetTemporaryToken(EtradeURLs.RequestTokenUrl);
+        requestTemporaryToken.callback = "oob";
+        requestTemporaryToken.consumerKey = oauth_consumer_key;
+        transport = new ApacheHttpTransport();
+        requestTemporaryToken.transport = transport;
+        signer = new OAuthHmacSigner();
+        requestTemporaryToken.signer = signer;
+        signer.clientSharedSecret = oauth_consumer_secret;
 
-        request = new ClientRequest();
-        request.setConsumerKey(oauth_consumer_key);
-        request.setConsumerSecret(oauth_consumer_secret);
-        logger.info(String.format("Request Created {%s}", request.toString()));
+        try {
+            requestTokenResponse = requestTemporaryToken.execute();
+        } catch (Exception e) {
+            logger.error(ExceptionUtils.getStackTrace(e));
+        }
 
-        request.setEnv(environment);
-        logger.info("Environment set to " + request.getEnv());
-
-        setRequestWithRequestToken();
+        signer.tokenSharedSecret = requestTokenResponse.tokenSecret;
     }
 
     @Override
@@ -97,7 +91,9 @@ public class ConnectionModel extends ListResourceBundle {
 
     public URI getVerificationURI() {
         try {
-            authorizeURL = client.getAuthorizeUrl(request);
+            OAuthAuthorizeTemporaryTokenUrl temporaryTokenUrl = new OAuthAuthorizeTemporaryTokenUrl(String.format(EtradeURLs.AuthorizationUrlBase, oauth_consumer_key, requestTokenResponse.token));
+            temporaryTokenUrl.temporaryToken = requestTokenResponse.token;
+            authorizeURL = temporaryTokenUrl.build();
             uri = new URI(authorizeURL);
             logger.info(String.format("Authorized URL {%s} URI {%s}", authorizeURL, uri));
             return uri;
@@ -111,38 +107,75 @@ public class ConnectionModel extends ListResourceBundle {
     public void setAccessToken(String verificationCode){
         try {
             oauth_verify_code = verificationCode;
-            request.setVerifierCode(oauth_verify_code);
-            accessToken = client.getAccessToken(request);
+
+            OAuthGetAccessToken accessToken = new OAuthGetAccessToken(EtradeURLs.AccessTokenUrl);
+            accessToken.consumerKey = oauth_consumer_key;
+            accessToken.signer = signer;
+            accessToken.transport = transport;
+            accessToken.temporaryToken = requestTokenResponse.token;
+            accessToken.verifier = oauth_verify_code;
+            OAuthCredentialsResponse accessTokenResponse = accessToken.execute();
+
             logger.info(String.format("Access Token set {%s}",accessToken.toString()));
 
-            oauth_access_token = accessToken.getToken();
-            oauth_access_token_secret = accessToken.getSecret();
+            oauth_access_token = accessTokenResponse.token;
+            oauth_access_token_secret = accessTokenResponse.tokenSecret;
+            signer.tokenSharedSecret = oauth_access_token_secret;
+
             logger.info(String.format("Access Token {%s} Access Token Secret {%s}", oauth_access_token, oauth_access_token_secret));
         } catch (Throwable e) {
             logger.error(ExceptionUtils.getStackTrace(e));
         }
     }
 
-    public ClientRequest getRequestWithAccessToken(){
-        request.setToken(oauth_access_token);
-        request.setTokenSecret(oauth_access_token_secret);
-        return request;
+    public HttpResponse responseForUrl(String url) throws IOException {
+        OAuthParameters parameters = new OAuthParameters();
+        parameters.consumerKey = oauth_consumer_key;
+        parameters.token = oauth_access_token;
+        parameters.signer = signer;
+        HttpRequestFactory factory = transport.createRequestFactory(parameters);
+
+        HttpRequest request = factory.buildGetRequest(new GenericUrl(url));
+        HttpResponse response = request.execute();
+
+        return response;
     }
 
-    public void setRequestWithRequestToken() {
-
+    private <T> T parseXmlResponse(String response, Class<T> tClass){
+        logger.info(String.format("Parsing {%s} to %s", response, tClass.toString()));
         try {
-            logger.info("Setting Request Token ...");
-            requestToken = client.getRequestToken(request);
-            oauth_request_token = requestToken.getToken();
-            oauth_request_token_secret = requestToken.getSecret();
-            request.setToken(oauth_request_token);
-            request.setTokenSecret(oauth_request_token_secret);
-            logger.info(String.format("Request token set {Object {%s}} {Token {%s}} {Token Secret {%s}}", requestToken.toString(), oauth_request_token, oauth_request_token_secret));
-        } catch (Throwable e) {
+            StringReader stringReader = new StringReader(response);
+            JAXBContext jaxbContext = JAXBContext.newInstance(tClass);
+            Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
+            @SuppressWarnings("unchecked")
+            T parsedObject = (T) unmarshaller.unmarshal(stringReader);
+            return parsedObject;
+        } catch (Exception e) {
             logger.error(ExceptionUtils.getStackTrace(e));
         }
+        return null;
+    }
 
+    public AccountListResponse getAccountLists() {
+        try {
+            HttpResponse response = responseForUrl(EtradeURLs.AccountList);
+            AccountListResponse accountListResponse = parseXmlResponse(response.parseAsString(), AccountListResponse.class);
+            return accountListResponse;
+        } catch (Exception e) {
+            logger.error(ExceptionUtils.getStackTrace(e));
+        }
+        return new AccountListResponse();
+    }
+
+    public BalanceResponse getAccountBalance(Account account){
+        try {
+            HttpResponse response = responseForUrl(String.format(EtradeURLs.AccountBalances, account.getAccountIdKey(), account.getInstitutionType(), "true"));
+            BalanceResponse balanceResponse = parseXmlResponse(response.parseAsString(), BalanceResponse.class);
+            return balanceResponse;
+        } catch (Exception e) {
+            logger.error(ExceptionUtils.getStackTrace(e));
+        }
+        return new BalanceResponse();
     }
 
 }

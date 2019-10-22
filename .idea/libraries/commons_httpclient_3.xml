@@ -3,9 +3,7 @@
     <CLASSES>
       <root url="file://$PROJECT_DIR$/../3rdParty/commons-httpclient-3.1" />
     </CLASSES>
-    <JAVADOC>
-      <root url="file://$PROJECT_DIR$/../3rdParty/commons-httpclient-3.1/docs/apidocs" />
-    </JAVADOC>
+    <JAVADOC />
     <SOURCES />
     <jarDirectory url="file://$PROJECT_DIR$/../3rdParty/commons-httpclient-3.1" recursive="false" />
   </library>
