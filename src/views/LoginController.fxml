@@ -1,32 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.web.*?>
-<?import javafx.scene.text.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.web.WebView?>
 
-<BorderPane prefHeight="630.0" prefWidth="1000.0" styleClass="genericGreen" stylesheets="@../../config/GenesisStyles.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.LoginController">
-   <top>
-      <Text mouseTransparent="true" pickOnBounds="true" strokeType="OUTSIDE" strokeWidth="0.0" text="Genesis" textAlignment="CENTER" wrappingWidth="178.21875" BorderPane.alignment="CENTER">
-         <font>
-            <Font name="Geneva" size="30.0" />
-         </font>
-         <BorderPane.margin>
-            <Insets bottom="30.0" top="30.0" />
-         </BorderPane.margin>
-      </Text>
-   </top>
+<BorderPane prefHeight="848.0" prefWidth="710.0" styleClass="genericGreen" stylesheets="@../../config/GenesisStyles.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.LoginController">
    <center>
       <StackPane fx:id="webViewStackPane" layoutX="92.0" layoutY="100.0" prefHeight="535.0" prefWidth="888.0" style="-fx-background-color: #D1D1D1;" StackPane.alignment="CENTER">
          <children>
             <WebView fx:id="etradeWebView" layoutX="32.0" layoutY="31.0" minWidth="-1.0" prefHeight="533.0" prefWidth="643.0" />
          </children>
          <BorderPane.margin>
-            <Insets bottom="50.0" left="50.0" right="50.0" />
+            <Insets />
          </BorderPane.margin>
          <padding>
-            <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
          </padding>
       </StackPane>
    </center>
+   <padding>
+      <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
+   </padding>
 </BorderPane>

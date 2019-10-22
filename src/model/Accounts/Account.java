@@ -1,5 +1,9 @@
 package model.Accounts;
 
+import javax.xml.bind.annotation.*;
+
+@XmlRootElement(name = "Account")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Account {
 
     private String accountId;

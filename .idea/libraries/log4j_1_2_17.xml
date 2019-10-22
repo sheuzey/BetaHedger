@@ -3,9 +3,7 @@
     <CLASSES>
       <root url="file://$PROJECT_DIR$/../3rdParty/apache-log4j-1.2.17" />
     </CLASSES>
-    <JAVADOC>
-      <root url="file://$PROJECT_DIR$/../3rdParty/apache-log4j-1.2.17/site/apidocs" />
-    </JAVADOC>
+    <JAVADOC />
     <NATIVE>
       <root url="file://$PROJECT_DIR$/../3rdParty/apache-log4j-1.2.17" />
     </NATIVE>

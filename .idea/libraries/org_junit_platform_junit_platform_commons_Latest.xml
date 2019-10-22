@@ -2,8 +2,8 @@
   <library name="org.junit.platform:junit-platform-commons:Latest" type="repository">
     <properties maven-id="org.junit.platform:junit-platform-commons:LATEST" />
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/../3rdParty/junit/junit-platform-commons-1.4.0-RC2.jar!/" />
-      <root url="jar://$PROJECT_DIR$/../3rdParty/junit/apiguardian-api-1.0.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../3rdParty/junit/junit-platform-commons-1.6.0-M1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../3rdParty/junit/apiguardian-api-1.1.0.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

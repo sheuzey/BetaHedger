@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.StackPane?>
+
+<BorderPane prefHeight="414.0" prefWidth="734.0" styleClass="genericGreen" stylesheets="@../../config/GenesisStyles.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AccountMenuController">
+    <center>
+        <StackPane fx:id="accountViewStackPane" layoutX="92.0" layoutY="100.0" prefHeight="535.0" prefWidth="287.0" style="-fx-background-color: #D1D1D1;" StackPane.alignment="CENTER">
+            <BorderPane.margin>
+                <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+            </BorderPane.margin>
+            <padding>
+                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+            </padding>
+        </StackPane>
+    </center>
+</BorderPane>

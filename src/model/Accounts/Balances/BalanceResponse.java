@@ -1,7 +1,10 @@
 package model.Accounts.Balances;
 
+import javax.xml.bind.annotation.*;
 import java.util.List;
 
+@XmlRootElement(name = "BalanceResponse")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class BalanceResponse {
 
     private String accountId;
@@ -14,6 +17,8 @@ public class BalanceResponse {
     private String dayTraderStatus;
     private String accountMode;
     private String accountDesc;
+    @XmlElementWrapper(name = "openCalls")
+    @XmlElement(name = "OpenCalls")
     private List<OpenCall> openCalls;
     private Cash cash;
     private Margin margin;

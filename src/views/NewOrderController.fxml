@@ -4,24 +4,12 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
 
-<BorderPane fx:id="mainBorderPane" prefHeight="521.0" prefWidth="387.0" styleClass="genericGreen" stylesheets="@../GenesisStyles.css" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.NewOrderController">
-    <top>
-        <Text mouseTransparent="true" pickOnBounds="true" strokeType="OUTSIDE" strokeWidth="0.0" text="Trade" textAlignment="CENTER" wrappingWidth="178.21875" BorderPane.alignment="CENTER">
-            <font>
-                <Font name="Geneva" size="30.0" />
-            </font>
-            <BorderPane.margin>
-                <Insets bottom="30.0" top="30.0" />
-            </BorderPane.margin>
-        </Text>
-    </top>
+<BorderPane fx:id="mainBorderPane" prefHeight="359.0" prefWidth="690.0" styleClass="genericGreen" stylesheets="@../../config/GenesisStyles.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.NewOrderController">
     <center>
-        <StackPane fx:id="webViewStackPane" layoutX="92.0" layoutY="100.0" prefHeight="535.0" prefWidth="287.0" style="-fx-background-color: #D1D1D1;" StackPane.alignment="CENTER">
+        <StackPane fx:id="newOrderStackPane" layoutX="92.0" layoutY="100.0" prefHeight="535.0" prefWidth="287.0" style="-fx-background-color: #D1D1D1;" StackPane.alignment="CENTER">
             <BorderPane.margin>
-                <Insets bottom="50.0" left="50.0" right="50.0" />
+                <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
             </BorderPane.margin>
             <padding>
                 <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />

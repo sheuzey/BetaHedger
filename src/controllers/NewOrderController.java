@@ -4,6 +4,7 @@ import com.jfoenix.controls.JFXToggleButton;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.StackPane;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -14,6 +15,8 @@ public class NewOrderController implements Initializable {
 
     @FXML
     private BorderPane mainBorderPane;
+    @FXML
+    private StackPane newOrderStackPane;
     @FXML
     private JFXToggleButton verbToggleButton;
 
