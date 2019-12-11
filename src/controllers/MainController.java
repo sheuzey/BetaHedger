@@ -28,8 +28,8 @@ public class MainController implements Initializable {
     @FXML
     private JFXButton menuFileButton, menuOrderButton, menuMarketDataButton, menuAccountsButton;
 
-    private JFXButton saveWorkspaceButton, loadWorkspaceButton, orderBlotterButton, newOrderButton, newQuoteButton;
-    private JFXPopup menuFilePopup, menuOrderPopup, menuMarketDataPopup;
+    private JFXButton saveWorkspaceButton, loadWorkspaceButton, orderBlotterButton, newOrderButton, newQuoteButton, accountsButton;
+    private JFXPopup menuFilePopup, menuOrderPopup, menuMarketDataPopup, menuAccountsPopup;
 
     private ConnectionModel connectionModel;
 
@@ -73,12 +73,16 @@ public class MainController implements Initializable {
 
         // Create 'Market Data' Menu items
         newQuoteButton = new JFXButton("New Quote");
+
+        // Create 'Accounts' Menu items
+        accountsButton = new JFXButton("Account List");
     }
 
     private void setupMenuPopups(){
         menuFilePopup = new JFXPopup(new VBox(saveWorkspaceButton,loadWorkspaceButton));
         menuOrderPopup = new JFXPopup(new VBox(newOrderButton, orderBlotterButton));
         menuMarketDataPopup = new JFXPopup(new VBox(newQuoteButton));
+        menuAccountsPopup = new JFXPopup(new VBox(accountsButton));
     }
 
     private void assignEventsForMenuItems() {
@@ -111,16 +115,20 @@ public class MainController implements Initializable {
 
 
         //'Market Data' Menu item events
+        menuMarketDataButton.setOnMouseClicked(event ->
+                setupPopupForButton(menuHBox, menuMarketDataButton, menuMarketDataPopup));
+
         newQuoteButton.setOnMouseClicked(event -> {
             logger.info(String.format("'%s' button clicked", newQuoteButton.getText()));
         });
 
-        menuMarketDataButton.setOnMouseClicked(event ->
-                setupPopupForButton(menuHBox, menuMarketDataButton, menuMarketDataPopup));
-
 
         //'Account' Menu item event
-        menuAccountsButton.setOnMouseClicked( event -> {
+        menuAccountsButton.setOnMouseClicked(event ->
+                setupPopupForButton(menuHBox, menuAccountsButton, menuAccountsPopup));
+
+
+        accountsButton.setOnMouseClicked( event -> {
             logger.info(String.format("'%s' button clicked, creating new Account view...", menuAccountsButton.getText()));
             showNewWindow("../views/AccountMenuController.fxml", "Accounts");
         });
