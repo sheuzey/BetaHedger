@@ -1,81 +1,88 @@
 package model.Accounts.Balances;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+
+@XmlAccessorType(XmlAccessType.FIELD)
 public class ComputedBalance {
 
-    private Number cashAvailableForInvestment;
-    private Number cashAvailableForWithdrawal;
-    private Number totalAvailableForWithdrawal;
-    private Number netCash;
-    private Number cashBalance;
-    private Number settledCashForInvestment;
-    private Number unSettledCashForInvestment;
-    private Number fundsWithheldFromPurchasePower;
-    private Number fundsWithheldFromWithdrawal;
-    private Number marginBuyingPower;
-    private Number cashBuyingPower;
-    private Number dtMarginBuyingPower;
-    private Number dtCashBuyingPower;
-    private Number marginBalance;
-    private Number shortAdjustBalance;
-    private Number regtEquity;
-    private Number regtEquityPercent;
-    private Number accountBalance;
+    private Double cashAvailableForInvestment;
+    private Double cashAvailableForWithdrawal;
+    private Double totalAvailableForWithdrawal;
+    private Double netCash;
+    private Double cashBalance;
+    private Double settledCashForInvestment;
+    private Double unSettledCashForInvestment;
+    private Double fundsWithheldFromPurchasePower;
+    private Double fundsWithheldFromWithdrawal;
+    private Double marginBuyingPower;
+    private Double cashBuyingPower;
+    private Double dtMarginBuyingPower;
+    private Double dtCashBuyingPower;
+    private Double marginBalance;
+    private Double shortAdjustBalance;
+    private Double regtEquity;
+    private Double regtEquityPercent;
+    private Double accountBalance;
+    @XmlElement(name = "OpenCalls")
     private OpenCall openCalls;
+    @XmlElement(name = "RealTimeValues")
     private RealTimeValues realTimeValues;
     private PortfolioMargin portfolioMargin;
 
-    public Number getCashAvailableForInvestment() {
+    public Double getCashAvailableForInvestment() {
         return cashAvailableForInvestment;
     }
-    public Number getCashAvailableForWithdrawal() {
+    public Double getCashAvailableForWithdrawal() {
         return cashAvailableForWithdrawal;
     }
-    public Number getTotalAvailableForWithdrawal() {
+    public Double getTotalAvailableForWithdrawal() {
         return totalAvailableForWithdrawal;
     }
-    public Number getNetCash() {
+    public Double getNetCash() {
         return netCash;
     }
-    public Number getCashBalance() {
+    public Double getCashBalance() {
         return cashBalance;
     }
-    public Number getSettledCashForInvestment() {
+    public Double getSettledCashForInvestment() {
         return settledCashForInvestment;
     }
-    public Number getUnSettledCashForInvestment() {
+    public Double getUnSettledCashForInvestment() {
         return unSettledCashForInvestment;
     }
-    public Number getFundsWithheldFromPurchasePower() {
+    public Double getFundsWithheldFromPurchasePower() {
         return fundsWithheldFromPurchasePower;
     }
-    public Number getFundsWithheldFromWithdrawal() {
+    public Double getFundsWithheldFromWithdrawal() {
         return fundsWithheldFromWithdrawal;
     }
-    public Number getMarginBuyingPower() {
+    public Double getMarginBuyingPower() {
         return marginBuyingPower;
     }
-    public Number getCashBuyingPower() {
+    public Double getCashBuyingPower() {
         return cashBuyingPower;
     }
-    public Number getDtMarginBuyingPower() {
+    public Double getDtMarginBuyingPower() {
         return dtMarginBuyingPower;
     }
-    public Number getDtCashBuyingPower() {
+    public Double getDtCashBuyingPower() {
         return dtCashBuyingPower;
     }
-    public Number getMarginBalance() {
+    public Double getMarginBalance() {
         return marginBalance;
     }
-    public Number getShortAdjustBalance() {
+    public Double getShortAdjustBalance() {
         return shortAdjustBalance;
     }
-    public Number getRegtEquity() {
+    public Double getRegtEquity() {
         return regtEquity;
     }
-    public Number getRegtEquityPercent() {
+    public Double getRegtEquityPercent() {
         return regtEquityPercent;
     }
-    public Number getAccountBalance() {
+    public Double getAccountBalance() {
         return accountBalance;
     }
     public OpenCall getOpenCalls() {
@@ -88,58 +95,58 @@ public class ComputedBalance {
         return portfolioMargin;
     }
 
-    public void setCashAvailableForInvestment(Number cashAvailableForInvestment) {
+    public void setCashAvailableForInvestment(Double cashAvailableForInvestment) {
         this.cashAvailableForInvestment = cashAvailableForInvestment;
     }
-    public void setCashAvailableForWithdrawal(Number cashAvailableForWithdrawal) {
+    public void setCashAvailableForWithdrawal(Double cashAvailableForWithdrawal) {
         this.cashAvailableForWithdrawal = cashAvailableForWithdrawal;
     }
-    public void setTotalAvailableForWithdrawal(Number totalAvailableForWithdrawal) {
+    public void setTotalAvailableForWithdrawal(Double totalAvailableForWithdrawal) {
         this.totalAvailableForWithdrawal = totalAvailableForWithdrawal;
     }
-    public void setNetCash(Number netCash) {
+    public void setNetCash(Double netCash) {
         this.netCash = netCash;
     }
-    public void setCashBalance(Number cashBalance) {
+    public void setCashBalance(Double cashBalance) {
         this.cashBalance = cashBalance;
     }
-    public void setSettledCashForInvestment(Number settledCashForInvestment) {
+    public void setSettledCashForInvestment(Double settledCashForInvestment) {
         this.settledCashForInvestment = settledCashForInvestment;
     }
-    public void setUnSettledCashForInvestment(Number unSettledCashForInvestment) {
+    public void setUnSettledCashForInvestment(Double unSettledCashForInvestment) {
         this.unSettledCashForInvestment = unSettledCashForInvestment;
     }
-    public void setFundsWithheldFromPurchasePower(Number fundsWithheldFromPurchasePower) {
+    public void setFundsWithheldFromPurchasePower(Double fundsWithheldFromPurchasePower) {
         this.fundsWithheldFromPurchasePower = fundsWithheldFromPurchasePower;
     }
-    public void setFundsWithheldFromWithdrawal(Number fundsWithheldFromWithdrawal) {
+    public void setFundsWithheldFromWithdrawal(Double fundsWithheldFromWithdrawal) {
         this.fundsWithheldFromWithdrawal = fundsWithheldFromWithdrawal;
     }
-    public void setMarginBuyingPower(Number marginBuyingPower) {
+    public void setMarginBuyingPower(Double marginBuyingPower) {
         this.marginBuyingPower = marginBuyingPower;
     }
-    public void setCashBuyingPower(Number cashBuyingPower) {
+    public void setCashBuyingPower(Double cashBuyingPower) {
         this.cashBuyingPower = cashBuyingPower;
     }
-    public void setDtMarginBuyingPower(Number dtMarginBuyingPower) {
+    public void setDtMarginBuyingPower(Double dtMarginBuyingPower) {
         this.dtMarginBuyingPower = dtMarginBuyingPower;
     }
-    public void setDtCashBuyingPower(Number dtCashBuyingPower) {
+    public void setDtCashBuyingPower(Double dtCashBuyingPower) {
         this.dtCashBuyingPower = dtCashBuyingPower;
     }
-    public void setMarginBalance(Number marginBalance) {
+    public void setMarginBalance(Double marginBalance) {
         this.marginBalance = marginBalance;
     }
-    public void setShortAdjustBalance(Number shortAdjustBalance) {
+    public void setShortAdjustBalance(Double shortAdjustBalance) {
         this.shortAdjustBalance = shortAdjustBalance;
     }
-    public void setRegtEquity(Number regtEquity) {
+    public void setRegtEquity(Double regtEquity) {
         this.regtEquity = regtEquity;
     }
-    public void setRegtEquityPercent(Number regtEquityPercent) {
+    public void setRegtEquityPercent(Double regtEquityPercent) {
         this.regtEquityPercent = regtEquityPercent;
     }
-    public void setAccountBalance(Number accountBalance) {
+    public void setAccountBalance(Double accountBalance) {
         this.accountBalance = accountBalance;
     }
     public void setOpenCalls(OpenCall openCalls) {

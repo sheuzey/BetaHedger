@@ -2,41 +2,41 @@ package model.Accounts.Balances;
 
 public class RealTimeValues {
 
-    private Number totalAccountValue;
-    private Number netMv;
-    private Number netMvLong;
-    private Number netMvShort;
-    private Number totalLongValue;
+    private Double totalAccountValue;
+    private Double netMv;
+    private Double netMvLong;
+    private Double netMvShort;
+    private Double totalLongValue;
 
-    public Number getTotalAccountValue() {
+    public Double getTotalAccountValue() {
         return totalAccountValue;
     }
-    public Number getNetMv() {
+    public Double getNetMv() {
         return netMv;
     }
-    public Number getNetMvLong() {
+    public Double getNetMvLong() {
         return netMvLong;
     }
-    public Number getNetMvShort() {
+    public Double getNetMvShort() {
         return netMvShort;
     }
-    public Number getTotalLongValue() {
+    public Double getTotalLongValue() {
         return totalLongValue;
     }
 
-    public void setTotalAccountValue(Number totalAccountValue) {
+    public void setTotalAccountValue(Double totalAccountValue) {
         this.totalAccountValue = totalAccountValue;
     }
-    public void setNetMv(Number netMv) {
+    public void setNetMv(Double netMv) {
         this.netMv = netMv;
     }
-    public void setNetMvLong(Number netMvLong) {
+    public void setNetMvLong(Double netMvLong) {
         this.netMvLong = netMvLong;
     }
-    public void setNetMvShort(Number netMvShort) {
+    public void setNetMvShort(Double netMvShort) {
         this.netMvShort = netMvShort;
     }
-    public void setTotalLongValue(Number totalLongValue) {
+    public void setTotalLongValue(Double totalLongValue) {
         this.totalLongValue = totalLongValue;
     }
 

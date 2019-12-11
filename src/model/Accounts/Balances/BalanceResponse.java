@@ -17,12 +17,13 @@ public class BalanceResponse {
     private String dayTraderStatus;
     private String accountMode;
     private String accountDesc;
-    @XmlElementWrapper(name = "openCalls")
     @XmlElement(name = "OpenCalls")
     private List<OpenCall> openCalls;
+    @XmlElement(name = "Cash")
     private Cash cash;
     private Margin margin;
     private Lending lending;
+    @XmlElement(name = "Computed")
     private ComputedBalance computedBalance;
 
     public String getAccountId() {

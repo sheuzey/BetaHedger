@@ -2,83 +2,83 @@ package model.Accounts.Balances;
 
 public class Lending {
 
-    private Number currentBalance;
-    private Number creditLine;
-    private Number outstandingBalance;
-    private Number minPaymentDue;
-    private Number amountPastDue;
-    private Number availableCredit;
-    private Number ytdInterestPaid;
-    private Number lastYtdInterestPaid;
-    private Number paymentDueDate;
-    private Number lastPaymentReceivedDate;
-    private Number paymentReceivedMtd;
+    private Double currentBalance;
+    private Double creditLine;
+    private Double outstandingBalance;
+    private Double minPaymentDue;
+    private Double amountPastDue;
+    private Double availableCredit;
+    private Double ytdInterestPaid;
+    private Double lastYtdInterestPaid;
+    private Double paymentDueDate;
+    private Double lastPaymentReceivedDate;
+    private Double paymentReceivedMtd;
 
-    public Number getCurrentBalance() {
+    public Double getCurrentBalance() {
         return currentBalance;
     }
-    public Number getCreditLine() {
+    public Double getCreditLine() {
         return creditLine;
     }
-    public Number getOutstandingBalance() {
+    public Double getOutstandingBalance() {
         return outstandingBalance;
     }
-    public Number getMinPaymentDue() {
+    public Double getMinPaymentDue() {
         return minPaymentDue;
     }
-    public Number getAmountPastDue() {
+    public Double getAmountPastDue() {
         return amountPastDue;
     }
-    public Number getAvailableCredit() {
+    public Double getAvailableCredit() {
         return availableCredit;
     }
-    public Number getYtdInterestPaid() {
+    public Double getYtdInterestPaid() {
         return ytdInterestPaid;
     }
-    public Number getLastYtdInterestPaid() {
+    public Double getLastYtdInterestPaid() {
         return lastYtdInterestPaid;
     }
-    public Number getPaymentDueDate() {
+    public Double getPaymentDueDate() {
         return paymentDueDate;
     }
-    public Number getLastPaymentReceivedDate() {
+    public Double getLastPaymentReceivedDate() {
         return lastPaymentReceivedDate;
     }
-    public Number getPaymentReceivedMtd() {
+    public Double getPaymentReceivedMtd() {
         return paymentReceivedMtd;
     }
 
-    public void setCurrentBalance(Number currentBalance) {
+    public void setCurrentBalance(Double currentBalance) {
         this.currentBalance = currentBalance;
     }
-    public void setCreditLine(Number creditLine) {
+    public void setCreditLine(Double creditLine) {
         this.creditLine = creditLine;
     }
-    public void setOutstandingBalance(Number outstandingBalance) {
+    public void setOutstandingBalance(Double outstandingBalance) {
         this.outstandingBalance = outstandingBalance;
     }
-    public void setMinPaymentDue(Number minPaymentDue) {
+    public void setMinPaymentDue(Double minPaymentDue) {
         this.minPaymentDue = minPaymentDue;
     }
-    public void setAmountPastDue(Number amountPastDue) {
+    public void setAmountPastDue(Double amountPastDue) {
         this.amountPastDue = amountPastDue;
     }
-    public void setAvailableCredit(Number availableCredit) {
+    public void setAvailableCredit(Double availableCredit) {
         this.availableCredit = availableCredit;
     }
-    public void setYtdInterestPaid(Number ytdInterestPaid) {
+    public void setYtdInterestPaid(Double ytdInterestPaid) {
         this.ytdInterestPaid = ytdInterestPaid;
     }
-    public void setLastYtdInterestPaid(Number lastYtdInterestPaid) {
+    public void setLastYtdInterestPaid(Double lastYtdInterestPaid) {
         this.lastYtdInterestPaid = lastYtdInterestPaid;
     }
-    public void setPaymentDueDate(Number paymentDueDate) {
+    public void setPaymentDueDate(Double paymentDueDate) {
         this.paymentDueDate = paymentDueDate;
     }
-    public void setLastPaymentReceivedDate(Number lastPaymentReceivedDate) {
+    public void setLastPaymentReceivedDate(Double lastPaymentReceivedDate) {
         this.lastPaymentReceivedDate = lastPaymentReceivedDate;
     }
-    public void setPaymentReceivedMtd(Number paymentReceivedMtd) {
+    public void setPaymentReceivedMtd(Double paymentReceivedMtd) {
         this.paymentReceivedMtd = paymentReceivedMtd;
     }
 

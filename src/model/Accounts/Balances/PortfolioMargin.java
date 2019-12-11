@@ -2,83 +2,83 @@ package model.Accounts.Balances;
 
 public class PortfolioMargin {
 
-    private Number dtCashOpenOrderReserve;
-    private Number dtMarginOpenOrderReserve;
-    private Number liquidatingEquity;
-    private Number houseExcessEquity;
-    private Number totalHouseRequirement;
-    private Number excessEquityMinusRequirement;
-    private Number totalMarginRqmts;
-    private Number availExcessEquity;
-    private Number excessEquity;
-    private Number openOrderReserve;
-    private Number fundsOnHold;
+    private Double dtCashOpenOrderReserve;
+    private Double dtMarginOpenOrderReserve;
+    private Double liquidatingEquity;
+    private Double houseExcessEquity;
+    private Double totalHouseRequirement;
+    private Double excessEquityMinusRequirement;
+    private Double totalMarginRqmts;
+    private Double availExcessEquity;
+    private Double excessEquity;
+    private Double openOrderReserve;
+    private Double fundsOnHold;
 
-    public Number getDtCashOpenOrderReserve() {
+    public Double getDtCashOpenOrderReserve() {
         return dtCashOpenOrderReserve;
     }
-    public Number getDtMarginOpenOrderReserve() {
+    public Double getDtMarginOpenOrderReserve() {
         return dtMarginOpenOrderReserve;
     }
-    public Number getLiquidatingEquity() {
+    public Double getLiquidatingEquity() {
         return liquidatingEquity;
     }
-    public Number getHouseExcessEquity() {
+    public Double getHouseExcessEquity() {
         return houseExcessEquity;
     }
-    public Number getTotalHouseRequirement() {
+    public Double getTotalHouseRequirement() {
         return totalHouseRequirement;
     }
-    public Number getExcessEquityMinusRequirement() {
+    public Double getExcessEquityMinusRequirement() {
         return excessEquityMinusRequirement;
     }
-    public Number getTotalMarginRqmts() {
+    public Double getTotalMarginRqmts() {
         return totalMarginRqmts;
     }
-    public Number getAvailExcessEquity() {
+    public Double getAvailExcessEquity() {
         return availExcessEquity;
     }
-    public Number getExcessEquity() {
+    public Double getExcessEquity() {
         return excessEquity;
     }
-    public Number getOpenOrderReserve() {
+    public Double getOpenOrderReserve() {
         return openOrderReserve;
     }
-    public Number getFundsOnHold() {
+    public Double getFundsOnHold() {
         return fundsOnHold;
     }
 
-    public void setDtCashOpenOrderReserve(Number dtCashOpenOrderReserve) {
+    public void setDtCashOpenOrderReserve(Double dtCashOpenOrderReserve) {
         this.dtCashOpenOrderReserve = dtCashOpenOrderReserve;
     }
-    public void setDtMarginOpenOrderReserve(Number dtMarginOpenOrderReserve) {
+    public void setDtMarginOpenOrderReserve(Double dtMarginOpenOrderReserve) {
         this.dtMarginOpenOrderReserve = dtMarginOpenOrderReserve;
     }
-    public void setLiquidatingEquity(Number liquidatingEquity) {
+    public void setLiquidatingEquity(Double liquidatingEquity) {
         this.liquidatingEquity = liquidatingEquity;
     }
-    public void setHouseExcessEquity(Number houseExcessEquity) {
+    public void setHouseExcessEquity(Double houseExcessEquity) {
         this.houseExcessEquity = houseExcessEquity;
     }
-    public void setTotalHouseRequirement(Number totalHouseRequirement) {
+    public void setTotalHouseRequirement(Double totalHouseRequirement) {
         this.totalHouseRequirement = totalHouseRequirement;
     }
-    public void setExcessEquityMinusRequirement(Number excessEquityMinusRequirement) {
+    public void setExcessEquityMinusRequirement(Double excessEquityMinusRequirement) {
         this.excessEquityMinusRequirement = excessEquityMinusRequirement;
     }
-    public void setTotalMarginRqmts(Number totalMarginRqmts) {
+    public void setTotalMarginRqmts(Double totalMarginRqmts) {
         this.totalMarginRqmts = totalMarginRqmts;
     }
-    public void setAvailExcessEquity(Number availExcessEquity) {
+    public void setAvailExcessEquity(Double availExcessEquity) {
         this.availExcessEquity = availExcessEquity;
     }
-    public void setExcessEquity(Number excessEquity) {
+    public void setExcessEquity(Double excessEquity) {
         this.excessEquity = excessEquity;
     }
-    public void setOpenOrderReserve(Number openOrderReserve) {
+    public void setOpenOrderReserve(Double openOrderReserve) {
         this.openOrderReserve = openOrderReserve;
     }
-    public void setFundsOnHold(Number fundsOnHold) {
+    public void setFundsOnHold(Double fundsOnHold) {
         this.fundsOnHold = fundsOnHold;
     }
 

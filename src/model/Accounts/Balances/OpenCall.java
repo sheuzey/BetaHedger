@@ -2,34 +2,34 @@ package model.Accounts.Balances;
 
 public class OpenCall {
 
-    private Number minEquityCall;
-    private Number fedCall;
-    private Number cashCall;
-    private Number houseCall;
+    private Double minEquityCall;
+    private Double fedCall;
+    private Double cashCall;
+    private Double houseCall;
 
-    public Number getMinEquityCall() {
+    public Double getMinEquityCall() {
         return minEquityCall;
     }
-    public Number getFedCall() {
+    public Double getFedCall() {
         return fedCall;
     }
-    public Number getCashCall() {
+    public Double getCashCall() {
         return cashCall;
     }
-    public Number getHouseCall() {
+    public Double getHouseCall() {
         return houseCall;
     }
 
-    public void setMinEquityCall(Number minEquityCall) {
+    public void setMinEquityCall(Double minEquityCall) {
         this.minEquityCall = minEquityCall;
     }
-    public void setFedCall(Number fedCall) {
+    public void setFedCall(Double fedCall) {
         this.fedCall = fedCall;
     }
-    public void setCashCall(Number cashCall) {
+    public void setCashCall(Double cashCall) {
         this.cashCall = cashCall;
     }
-    public void setHouseCall(Number houseCall) {
+    public void setHouseCall(Double houseCall) {
         this.houseCall = houseCall;
     }
 

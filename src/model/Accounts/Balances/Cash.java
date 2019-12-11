@@ -2,20 +2,20 @@ package model.Accounts.Balances;
 
 public class Cash {
 
-    private Number fundsForOpenOrdersCash;
-    private Number moneyMktBalance;
+    private Double fundsForOpenOrdersCash;
+    private Double moneyMktBalance;
 
-    public Number getFundsForOpenOrdersCash() {
+    public Double getFundsForOpenOrdersCash() {
         return fundsForOpenOrdersCash;
     }
-    public Number getMoneyMktBalance() {
+    public Double getMoneyMktBalance() {
         return moneyMktBalance;
     }
 
-    public void setFundsForOpenOrdersCash(Number fundsForOpenOrdersCash) {
+    public void setFundsForOpenOrdersCash(Double fundsForOpenOrdersCash) {
         this.fundsForOpenOrdersCash = fundsForOpenOrdersCash;
     }
-    public void setMoneyMktBalance(Number moneyMktBalance) {
+    public void setMoneyMktBalance(Double moneyMktBalance) {
         this.moneyMktBalance = moneyMktBalance;
     }
 
