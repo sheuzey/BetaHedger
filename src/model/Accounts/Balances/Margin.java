@@ -2,20 +2,20 @@ package model.Accounts.Balances;
 
 public class Margin {
 
-    private Number dtCashOpenOrderReserve;
-    private Number dtMarginOpenOrderReserve;
+    private Double dtCashOpenOrderReserve;
+    private Double dtMarginOpenOrderReserve;
 
-    public Number getDtCashOpenOrderReserve() {
+    public Double getDtCashOpenOrderReserve() {
         return dtCashOpenOrderReserve;
     }
-    public Number getDtMarginOpenOrderReserve() {
+    public Double getDtMarginOpenOrderReserve() {
         return dtMarginOpenOrderReserve;
     }
 
-    public void setDtCashOpenOrderReserve(Number dtCashOpenOrderReserve) {
+    public void setDtCashOpenOrderReserve(Double dtCashOpenOrderReserve) {
         this.dtCashOpenOrderReserve = dtCashOpenOrderReserve;
     }
-    public void setDtMarginOpenOrderReserve(Number dtMarginOpenOrderReserve) {
+    public void setDtMarginOpenOrderReserve(Double dtMarginOpenOrderReserve) {
         this.dtMarginOpenOrderReserve = dtMarginOpenOrderReserve;
     }
 

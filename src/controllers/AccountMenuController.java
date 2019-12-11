@@ -67,7 +67,7 @@ public class AccountMenuController implements Initializable {
         accountNameColumn.setPrefWidth(150);
         accountNameColumn.setCellValueFactory((TreeTableColumn.CellDataFeatures<RecursiveBalance, String> param) -> {
             if (accountNameColumn.validateValue(param))
-                return new ReadOnlyStringWrapper(param.getValue().getValue().getBalanceResponse().getAccountDesc());
+                return new ReadOnlyStringWrapper(param.getValue().getValue().getBalanceResponse().getAccountId());
             else return accountNameColumn.getComputedValue(param);
         });
 
@@ -83,8 +83,7 @@ public class AccountMenuController implements Initializable {
         accountNetValueColumn.setPrefWidth(150);
         accountNetValueColumn.setCellValueFactory((TreeTableColumn.CellDataFeatures<RecursiveBalance, String> param) -> {
             if (accountNetValueColumn.validateValue(param))
-                return new ReadOnlyStringWrapper(param.getValue().getValue().getBalanceResponse().getComputedBalance().getRealTimeValues().getNetMv().toString());
-                //return new ReadOnlyObjectWrapper<>(NumberFormat.getNumberInstance().format(param.getValue().getValue().getBalanceResponse().getComputedBalance().getRealTimeValues().getNetMv()));
+                return new ReadOnlyStringWrapper("$" + param.getValue().getValue().getBalanceResponse().getComputedBalance().getRealTimeValues().getNetMv().toString());
             else return accountNetValueColumn.getComputedValue(param);
         });
 
